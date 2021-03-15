@@ -20,6 +20,13 @@ class Paciente extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+
+    ];
+
+
+    public function ubs(){
+        return $this->belongsTo(Ubs::class);
+    }
 
 }

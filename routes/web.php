@@ -19,5 +19,8 @@ Route::post('/auth', 'AuthController@auth')->name('admin.auth');
 
 Route::get('/admin/home', 'HomeController@index')->name('admin.home');
 
-
-Route::get('/admin/pacientes/search', 'PacientesController@search')->name('admin.pacientes.search');
+Route::prefix('admin')->group(function () {
+    Route::get('/pacientes/search', 'PacientesController@search')->name('pacientes.search');
+    Route::get('/pacientes/agendamento', 'PacientesController@agendamento')->name('pacientes.agendamento');
+    Route::resource('pacientes', 'PacientesController');
+});

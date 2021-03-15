@@ -9,7 +9,7 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Convocação</h1>
+                    <h1 class="app-page-title mb-0">Agendamento:</h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
@@ -19,7 +19,7 @@
                                     @csrf
 
                                     <div class="col-auto">
-                                        <select class="form-select w-auto" name="campanha_id" >
+                                        <select class="form-select w-auto" name="campanha_id" required >
                                             <option selected value=" ">--CAMPANHA--</option>
                                             @foreach ($campanhas as $camp)
                                                 <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
@@ -29,13 +29,17 @@
                                     </div>
 
                                     <div class="col-auto">
+                                        <input type="date" name="dh_agendamento" class="form-control search-orders" required>
+                                    </div>
+
+                                    {{-- <div class="col-auto">
                                         <select class="form-select w-auto" name="filter" >
-                                            <option selected value=" ">--IDADE MIN--</option>
+                                            <option selected value=" ">--IDADE--</option>
                                             <option value="nome">Nome</option>
                                             <option value="cpf">CPF</option>
                                             <option value="cns">CNS</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
           
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>
@@ -79,7 +83,9 @@
                                             <th class="cell">IDADE</th>
                                             <th class="cell">CNS</th>
                                             <th class="cell">CELULAR</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">UBS </th>
+                                            <th class="cell"><input type="checkbox" name="all" ></th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,6 +99,8 @@
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
                                                 <td class="cell">{{ $paciente->celular }}</td>
+                                                <td class="cell">{{ $paciente->ubs->nome }}</td>
+                                                <td class="cell"><input type="checkbox" name[]="pacientes" value="{{$paciente->id}}" ></td>
                                             </tr>
                                             @endforeach
                                         @endisset

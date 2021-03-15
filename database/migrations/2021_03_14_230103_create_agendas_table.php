@@ -18,6 +18,7 @@ class CreateAgendasTable extends Migration
 		Schema::create('agendas', function(Blueprint $table) {
             $table->increments('id');
 			$table->unsignedBigInteger('user_id');
+			$table->integer('campanha_id');
 			$table->integer('paciente_id');
 			$table->dateTime('dh_agendamento');
 			$table->char('confirm', 1)->nullable();

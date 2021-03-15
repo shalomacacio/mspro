@@ -15,7 +15,7 @@
                      <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                             <div class="col-auto">
-                                <form class="table-search-form row gx-1 align-items-center" action="{{ route('admin.pacientes.search') }}">
+                                <form class="table-search-form row gx-1 align-items-center" action="{{ route('pacientes.search') }}">
                                     @csrf
                                     <div class="col-auto">
                                         <input type="text" id="search-orders" name="value" class="form-control search-orders" placeholder="Escolha um tipo de pesquisa">
@@ -92,7 +92,8 @@
                            
                         </div><!--//app-card-body-->		
                     </div><!--//app-card-->
-                    <nav class="app-pagination">
+
+                    {{-- <nav class="app-pagination">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -104,7 +105,8 @@
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav><!--//app-pagination-->
+                    </nav><!--//app-pagination--> --}}
+
                 </div><!--//tab-pane-->
             </div><!--//tab-content-->
             

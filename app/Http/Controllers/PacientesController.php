@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Campanha;
 use App\Entities\Paciente;
 use Illuminate\Http\Request;
 
@@ -60,7 +61,7 @@ class PacientesController extends Controller
             ]);
         }
 
-        return view('pacientes.index', compact('pacientes'));
+        return view('admin.pacientes.index', compact('pacientes'));
     }
 
     /**
@@ -121,7 +122,7 @@ class PacientesController extends Controller
             ]);
         }
 
-        return view('pacientes.show', compact('paciente'));
+        return view('admin.pacientes.show', compact('paciente'));
     }
 
     /**
@@ -135,7 +136,7 @@ class PacientesController extends Controller
     {
         $paciente = $this->repository->find($id);
 
-        return view('pacientes.edit', compact('paciente'));
+        return view('admin.pacientes.edit', compact('paciente'));
     }
 
     /**
@@ -217,9 +218,20 @@ class PacientesController extends Controller
                 $pacientes = DB::table('pacientes')->where($filter,$value )->get();
             }
         }
-        
-
-        
+    
         return view('admin.pacientes.search', compact('pacientes'));
     }
+
+    public function agendamento(Request $request){
+        
+        $pacientes = null;
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+
+        if($request != null){
+            $pacientes = DB::table('pacientes')->get()->sortBy('dt_nascimento');
+        }
+        return view('admin.pacientes.agendamento', compact('pacientes', 'campanhas'));
+    }
+
+
 }

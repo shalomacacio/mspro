@@ -26,7 +26,7 @@
                     </a><!--//nav-link-->
                     <div id="submenu-1" class="collapse submenu submenu-1" data-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link" href="{{ route('admin.pacientes.search')}}">Pacientes</a></li>
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('pacientes.search')}}">Pacientes</a></li>
                         </ul>
                     </div>
                 </li><!--//nav-item-->
@@ -46,7 +46,7 @@
                     <div id="submenu-2" class="collapse submenu submenu-2" data-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a class="submenu-link" href="#">Novo Paciente</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">Convocação</a></li>
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('pacientes.agendamento') }}">Agendamento</a></li>
                         </ul>
                     </div>
                 </li><!--//nav-item-->

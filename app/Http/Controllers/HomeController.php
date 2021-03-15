@@ -15,12 +15,4 @@ class HomeController extends Controller
         return view('admin.home');
     }
 
-    public function busca(){
-        return view('admin.busca');
-    }
-
-    // public function convocacao(){
-    //     $campanhas = Campanha::all();
-    //     return view('admin.convocacao', compact('campanhas'));
-    // }
 }
