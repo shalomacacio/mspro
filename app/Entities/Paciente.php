@@ -24,9 +24,8 @@ class Paciente extends Model implements Transformable
 
     ];
 
-
     public function ubs(){
-        return $this->belongsTo(Ubs::class);
+        return $this->belongsTo(App\Entities\Ubs::class, 'ubs_id', 'id');
     }
 
 }

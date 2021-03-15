@@ -19,6 +19,13 @@
                                     @csrf
 
                                     <div class="col-auto">
+                                        <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" required>
+                                    </div>   
+                                    <div class="col-auto">
+                                        <input type="number" name="idade_max" class="form-control search-orders" placeholder="IDADE MÁXIMA" required>
+                                    </div>                                  
+
+                                    {{-- <div class="col-auto">
                                         <select class="form-select w-auto" name="campanha_id" required >
                                             <option selected value=" ">--CAMPANHA--</option>
                                             @foreach ($campanhas as $camp)
@@ -26,11 +33,11 @@
                                             @endforeach
                     
                                         </select>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-auto">
+                                    {{-- <div class="col-auto">
                                         <input type="date" name="dh_agendamento" class="form-control search-orders" required>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="col-auto">
                                         <select class="form-select w-auto" name="filter" >
@@ -48,12 +55,13 @@
                                 
                             </div><!--//col-->
   
-                            <div class="col-auto">						    
+                            {{-- <div class="col-auto">						    
                                 <a class="btn app-btn-secondary" href="#">
                                     @include('admin.layouts.svg.download')
                                     Download CSV
                                 </a>
-                            </div>
+                            </div> --}}
+
                         </div><!--//row-->
                     </div><!--//table-utilities-->
                 </div><!--//col-auto-->
@@ -82,8 +90,9 @@
                                             <th class="cell">NASCIMENTO</th>
                                             <th class="cell">IDADE</th>
                                             <th class="cell">CNS</th>
-                                            <th class="cell">CELULAR</th>
                                             <th class="cell">UBS </th>
+                                            <th class="cell">CELULAR</th>
+                                            
                                             <th class="cell"><input type="checkbox" name="all" ></th>
 
                                         </tr>
@@ -91,6 +100,7 @@
                                     <tbody>
                                         @isset($pacientes)
                                             @foreach ($pacientes as $paciente)
+                                            @if ( \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) >= $idade_min  && \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) <= $idade_max)
                                             <tr>
                                                 <td class="cell">{{ $paciente->id }}</td>
                                                 <td class="cell"><span class="truncate">{{ $paciente->nome }}</span></td>
@@ -98,21 +108,21 @@
                                                 <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
+                                                <td class="cell">{{ $paciente->ubs }}</td>
                                                 <td class="cell">{{ $paciente->celular }}</td>
-                                                <td class="cell">{{ $paciente->ubs->nome }}</td>
                                                 <td class="cell"><input type="checkbox" name[]="pacientes" value="{{$paciente->id}}" ></td>
                                             </tr>
+                                            @endif
                                             @endforeach
                                         @endisset
-                                        
-    
                                     </tbody>
                                 </table>
                             </div><!--//table-responsive-->
                            
                         </div><!--//app-card-body-->		
                     </div><!--//app-card-->
-                    <nav class="app-pagination">
+
+                    {{-- <nav class="app-pagination">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -124,7 +134,7 @@
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav><!--//app-pagination-->
+                    </nav><!--//app-pagination--> --}}
                     
                 </div><!--//tab-pane-->
       

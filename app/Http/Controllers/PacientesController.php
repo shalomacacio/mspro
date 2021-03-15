@@ -223,14 +223,20 @@ class PacientesController extends Controller
     }
 
     public function agendamento(Request $request){
-        
+        $idade_min = $request->idade_min;
+        $idade_max = $request->idade_max;
+
         $pacientes = null;
         $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
 
         if($request != null){
-            $pacientes = DB::table('pacientes')->get()->sortBy('dt_nascimento');
+            $pacientes = DB::table('pacientes as p')
+            ->join('ubs as u', 'p.ubs_id', 'u.id')
+            ->select('p.id', 'p.nome', 'p.cpf', 'p.cns','p.celular', 'p.dt_nascimento', 'u.nome as ubs')
+            ->get()
+            ->sortBy('dt_nascimento');
         }
-        return view('admin.pacientes.agendamento', compact('pacientes', 'campanhas'));
+        return view('admin.pacientes.agendamento', compact('pacientes', 'campanhas', 'idade_min', 'idade_max'));
     }
 
 
