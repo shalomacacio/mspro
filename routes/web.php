@@ -23,4 +23,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/pacientes/search', 'PacientesController@search')->name('pacientes.search');
     Route::get('/pacientes/agendamento', 'PacientesController@agendamento')->name('pacientes.agendamento');
     Route::resource('pacientes', 'PacientesController');
+
+    Route::post('/agendas/agendarLote', 'AgendasController@agendarLote')->name('agendas.agendarLote');
+    Route::resource('agendas', 'AgendasController');
 });

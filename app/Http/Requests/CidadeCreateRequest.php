@@ -13,7 +13,7 @@ class CidadeCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

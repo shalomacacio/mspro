@@ -9,13 +9,13 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Agendamento em Lote:</h1>
+                    <h1 class="app-page-title mb-0">Agenda:</h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                             <div class="col-auto">
-                                <form class="table-search-form row gx-1 align-items-center">
+                                <form class="table-search-form row gx-1 align-items-center" action="{{ route('agendas.index') }}" method="GET">
                                     @csrf
                                     <select class="form-select w-auto" name="campanha_id" required >
                                         <option selected value=" ">--CAMPANHA--</option>
@@ -24,12 +24,12 @@
                                         @endforeach
                                     </select>
 
-                                    <div class="col-auto">
+                                    {{-- <div class="col-auto">
                                         <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" required>
                                     </div>   
                                     <div class="col-auto">
                                         <input type="number" name="idade_max" class="form-control search-orders" placeholder="IDADE MÁXIMA" required>
-                                    </div>                                  
+                                    </div>                                   --}}
 
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>
@@ -61,35 +61,31 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">COD</th>
-                                            <th class="cell">NOME</th>
-                                            <th class="cell">CPF</th>
-                                            <th class="cell">NASCIMENTO</th>
+                                            <th class="cell">DATA</th>
+                                            <th class="cell">PACIENTE</th>
                                             <th class="cell">IDADE</th>
+                                            <th class="cell">CPF</th>
                                             <th class="cell">CNS</th>
-                                            <th class="cell">UBS </th>
                                             <th class="cell">CELULAR</th>
                                             <th class="cell"><input type="checkbox" name="all" ></th>
 
                                         </tr>
                                     </thead>
-                                    @isset($pacientes)
-                                    <form action="{{ route('agendas.agendarLote')  }}" method="POST">
+                                    @isset($agendas)
+                                    {{-- <form action="{{ route('agendas.agendarLote')  }}" method="POST"> --}}
                                         @csrf
                                         <tbody>
-                                            @foreach ($pacientes as $paciente)
-                                                @if ( \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) >= $idade_min  && \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) <= $idade_max)
+                                            @foreach ($agendas as $agenda)
                                                 <tr>
-                                                    <td class="cell">{{ $paciente->id }}</td>
-                                                    <td class="cell"><span class="truncate">{{ $paciente->nome }}</span></td>
-                                                    <td class="cell">{{ $paciente->cpf }}</td>
-                                                    <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
-                                                    <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
-                                                    <td class="cell">{{ $paciente->cns }}</td>
-                                                    <td class="cell">{{ $paciente->ubs }}</td>
-                                                    <td class="cell">{{ $paciente->celular }}</td>
-                                                    <td class="cell"><input type="checkbox" name="pacientes[]" value="{{ $paciente->id }}" /></td>
+                                                    <td class="cell">{{ $agenda->id }}</td>
+                                                    <td class="cell">{{ Carbon\Carbon::parse($agenda->dh_agendamento)->format('d-m-Y') }}</td>
+                                                    <td class="cell">{{ $agenda->paciente->nome }}</td>  
+                                                    <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($agenda->paciente->dt_nascimento)}} </td>
+                                                    <td class="cell">{{ $agenda->paciente->cpf }}</td>  
+                                                    <td class="cell">{{ $agenda->paciente->cns }}</td>  
+                                                    <td class="cell">{{ $agenda->paciente->celular }}</td> 
+                                                    <td class="cell"><input type="checkbox" name="pacientes[]" value="0" /></td>
                                                 </tr>
-                                                @endif
                                             @endforeach
                                         </tbody>
                                         @isset($campanha_id)
@@ -110,7 +106,7 @@
                                             </tr> 
                                         </tfoot>
                                         @endisset
-                                    </form>
+                                    {{-- </form> --}}
                                  @endisset
                                 </table>
                             </div><!--//table-responsive-->

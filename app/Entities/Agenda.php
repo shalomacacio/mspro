@@ -20,6 +20,19 @@ class Agenda extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'campanha_id',
+        'paciente_id',
+        'dh_agendamento'
+    ];
+
+    public function paciente(){
+        return $this->belongsTo(Paciente::class);
+    }
+
+    public function campanha(){
+        return $this->belongsTo(Campanha::class);
+    }
 
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Agenda;
+use App\Entities\Campanha;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -46,10 +48,18 @@ class AgendasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $agendas = $this->repository->all();
+        $campanhas = Campanha::all();
+        $campanha_id = $request->campanha_id;
+
+        if(!$campanha_id){
+            $agendas = $this->repository->all();
+        } else{
+            $agendas = $this->repository->where('campanha_id', $campanha_id)->get();
+        }
+        
 
         if (request()->wantsJson()) {
 
@@ -58,7 +68,7 @@ class AgendasController extends Controller
             ]);
         }
 
-        return view('agendas.index', compact('agendas'));
+        return view('admin.agendas.index', compact('agendas', 'campanhas'));
     }
 
     /**
@@ -70,6 +80,7 @@ class AgendasController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
+
     public function store(AgendaCreateRequest $request)
     {
         try {
@@ -80,6 +91,52 @@ class AgendasController extends Controller
 
             $response = [
                 'message' => 'Agenda created.',
+                'data'    => $agenda->toArray(),
+            ];
+
+            if ($request->wantsJson()) {
+
+                return response()->json($response);
+            }
+
+            return redirect()->back()->with('message', $response['message']);
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
+    }
+
+
+    public function agendarLote(AgendaCreateRequest $request)
+    {
+        try {
+
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+            $pacientes = $request->pacientes;
+            $campanha_id = $request->campanha_id;
+            $dh_agendamento = $request->dh_agendamento;
+            $user_id = $request->user_id;
+
+            foreach ($pacientes as  $paciente) {
+
+                $agenda = new Agenda();
+                $agenda->user_id = $user_id;
+                $agenda->paciente_id = $paciente;
+                $agenda->campanha_id = $campanha_id;
+                $agenda->dh_agendamento = $dh_agendamento;
+                $agenda->save();
+            }
+
+
+            $response = [
+                'message' => 'Agendameno criado com sucesso.',
                 'data'    => $agenda->toArray(),
             ];
 
@@ -119,7 +176,7 @@ class AgendasController extends Controller
             ]);
         }
 
-        return view('agendas.show', compact('agenda'));
+        return view('admin.agendas.show', compact('agenda'));
     }
 
     /**
@@ -133,7 +190,7 @@ class AgendasController extends Controller
     {
         $agenda = $this->repository->find($id);
 
-        return view('agendas.edit', compact('agenda'));
+        return view('admin.agendas.edit', compact('agenda'));
     }
 
     /**

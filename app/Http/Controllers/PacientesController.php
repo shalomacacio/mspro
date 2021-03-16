@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Agenda;
 use App\Entities\Campanha;
 use App\Entities\Paciente;
 use Illuminate\Http\Request;
@@ -229,15 +230,19 @@ class PacientesController extends Controller
         $pacientes = null;
         $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
 
+        $campanha_id = $request->campanha_id;
+        $agenda = Agenda::where('campanha_id', $campanha_id)->get();
+
+
         if($request != null){
             $pacientes = DB::table('pacientes as p')
             ->join('ubs as u', 'p.ubs_id', 'u.id')
             ->select('p.id', 'p.nome', 'p.cpf', 'p.cns','p.celular', 'p.dt_nascimento', 'u.nome as ubs')
+            // ->whereNotIN('p.id', $agenda)
             ->get()
             ->sortBy('dt_nascimento');
         }
-        return view('admin.pacientes.agendamento', compact('pacientes', 'campanhas', 'idade_min', 'idade_max'));
+        return view('admin.pacientes.agendamento', compact('pacientes', 'campanhas', 'idade_min', 'idade_max', 'campanha_id'));
     }
-
 
 }
