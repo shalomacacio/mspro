@@ -233,12 +233,15 @@ class PacientesController extends Controller
         $campanha_id = $request->campanha_id;
         $agenda = Agenda::where('campanha_id', $campanha_id)->get();
 
+        if($agenda){
+            $ja_agendados = $agenda->pluck('paciente_id')->toArray();
+        }
 
         if($request != null){
             $pacientes = DB::table('pacientes as p')
             ->join('ubs as u', 'p.ubs_id', 'u.id')
             ->select('p.id', 'p.nome', 'p.cpf', 'p.cns','p.celular', 'p.dt_nascimento', 'u.nome as ubs')
-            // ->whereNotIN('p.id', $agenda)
+            ->whereNotIN('p.id', $ja_agendados)
             ->get()
             ->sortBy('dt_nascimento');
         }

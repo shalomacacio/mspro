@@ -134,7 +134,6 @@ class AgendasController extends Controller
                 $agenda->save();
             }
 
-
             $response = [
                 'message' => 'Agendameno criado com sucesso.',
                 'data'    => $agenda->toArray(),

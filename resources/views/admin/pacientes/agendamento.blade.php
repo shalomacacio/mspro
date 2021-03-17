@@ -87,7 +87,7 @@
                                                     <td class="cell">{{ $paciente->cns }}</td>
                                                     <td class="cell">{{ $paciente->ubs }}</td>
                                                     <td class="cell">{{ $paciente->celular }}</td>
-                                                    <td class="cell"><input type="checkbox" name="pacientes[]" value="{{ $paciente->id }}" /></td>
+                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($campanha_id) checked @endisset /></td>
                                                 </tr>
                                                 @endif
                                             @endforeach
