@@ -2,72 +2,114 @@
 
 @section('content')
 
-    <div class="app-wrapper">
-        <div class="app-content pt-3 p-md-3 p-lg-4">
-            <div class="container-xl">
-                <h1 class="app-page-title">Vacinação COVID-19 </h1>
+<div class="app-wrapper">
 
-                <div class="row g-4">
-                    <div class="col-12 col-md-6">
-                        <div class="app-card app-card-basic d-flex flex-column align-items-start shadow-sm">
-                            <div class="app-card-header p-3 border-bottom-0">
-                                <div class="row align-items-center gx-3">
-                                    <div class="col-auto">
-                                        <div class="app-icon-holder icon-holder-mono">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-life-preserver"
-                                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M14.43 10.772l-2.788-1.115a4.015 4.015 0 0 1-1.985 1.985l1.115 2.788a7.025 7.025 0 0 0 3.658-3.658zM5.228 14.43l1.115-2.788a4.015 4.015 0 0 1-1.985-1.985L1.57 10.772a7.025 7.025 0 0 0 3.658 3.658zm9.202-9.202a7.025 7.025 0 0 0-3.658-3.658L9.657 4.358a4.015 4.015 0 0 1 1.985 1.985l2.788-1.115zm-8.087-.87L5.228 1.57A7.025 7.025 0 0 0 1.57 5.228l2.788 1.115a4.015 4.015 0 0 1 1.985-1.985zM8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-5a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                            </svg>
-                                        </div>
-                                        <!--//icon-holder-->
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
 
-                                    </div>
-                                    <!--//col-->
-                                    <div class="col-auto">
-                                        <h4 class="app-card-title">O que é Doses de Esperança?</h4>
-                                    </div>
-                                    <!--//col-->
-                                </div>
-                                <!--//row-->
+            <h1 class="app-page-title">Dashboard</h1>
+
+            <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
+                <div class="inner">
+                    <div class="app-card-body p-3 p-lg-4">
+                        <h3 class="mb-3">Bem vindo(a), ao MSAÚDE !</h3>
+                        <div class="row gx-5 gy-3">
+                            <div class="col-12 col-lg-9">
+
+                                <div>O novo sistema tem como objetivo ajudar a organizar e otimizar o plano de imunização da população de Maranguape com inovação e eficiência.</div>
                             </div>
-                            <!--//app-card-header-->
-                            <div class="app-card-body px-4">
-
-                                <div class="intro mb-3">Maranguape foi umas das primeiras cidades do Ceará a iniciar a vacinação contra a COVID-19. A Prefeitura montou uma força-tarefa para levar adiante o Plano de imunização Municipal, e segue empenhada em dar continuidade ao cronograma das vacinações.</div>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        @include('admin.layouts.svg.check')  Se precisar sair, use a máscara facial.
-                                    </li>
-                                    <li>
-                                       @include('admin.layouts.svg.check') Lave as mãos com água e sabão ou use álcool gel 70%.
-                                    </li>
-                                    <li>
-                                        @include('admin.layouts.svg.check') Mantenha 2 metros de distância de qualquer pessoa.
-                                    </li>
-
-                                </ul>
+                            <!--//col-->
+                            <div class="col-12 col-lg-3">
+                                <a class="btn app-btn-primary" href="#">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                                        <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                                        <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
+                                    </svg>Documentação
+                                </a>
                             </div>
-                            <!--//app-card-body-->
-                            <div class="app-card-footer p-4 mt-auto">
-                                <a class="btn app-btn-primary" href="#">Ir pra Home</a>
-                            </div>
-                            <!--//app-card-footer-->
+                            <!--//col-->
                         </div>
-                        <!--//app-card-->
+                        <!--//row-->
+                        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <!--//col-->
+                    <!--//app-card-body-->
+
                 </div>
-                <!--//row-->
-
+                <!--//inner-->
             </div>
-            <!--//container-fluid-->
+            <!--//app-card-->
+
+            <div class="row g-4 mb-4">
+                <div class="col-6 col-lg-3">
+                    <div class="app-card app-card-stat shadow-sm h-100">
+                        <div class="app-card-body p-3 p-lg-4">
+                            <h4 class="stats-type mb-1">Usuários</h4>
+                            <div class="stats-figure"> {{ number_format($users) }}</div>
+                            <div class="stats-meta text-success">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                                </svg> apenas usuarios do sistema </div>
+                        </div>
+                        <!--//app-card-body-->
+                        <a class="app-card-link-mask" href="#"></a>
+                    </div>
+                    <!--//app-card-->
+                </div>
+                <!--//col-->
+
+                <div class="col-6 col-lg-3">
+                    <div class="app-card app-card-stat shadow-sm h-100">
+                        <div class="app-card-body p-3 p-lg-4">
+                            <h4 class="stats-type mb-1">Pacientes Cadastrados</h4>
+                            <div class="stats-figure">{{ number_format($pacientes) }}</div>
+                            <div class="stats-meta text-success">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                                </svg> com cadastro completo </div>
+                        </div>
+                        <!--//app-card-body-->
+                        <a class="app-card-link-mask" href="#"></a>
+                    </div>
+                    <!--//app-card-->
+                </div>
+                <!--//col-->
+                <div class="col-6 col-lg-3">
+                    <div class="app-card app-card-stat shadow-sm h-100">
+                        <div class="app-card-body p-3 p-lg-4">
+                            <h4 class="stats-type mb-1">TOTAL AGENDADOS</h4>
+                            <div class="stats-figure">{{ $agendados }}</div>
+                            <div class="stats-meta">
+                                aptos para vacinação</div>
+                        </div>
+                        <!--//app-card-body-->
+                        <a class="app-card-link-mask" href="#"></a>
+                    </div>
+                    <!--//app-card-->
+                </div>
+                <!--//col-->
+                <div class="col-6 col-lg-3">
+                    <div class="app-card app-card-stat shadow-sm h-100">
+                        <div class="app-card-body p-3 p-lg-4">
+                            <h4 class="stats-type mb-1">JÁ VACINADOS </h4>
+                            <div class="stats-figure">{{ $vacinados }}</div>
+                            <div class="stats-meta"> já receberam vacina </div>
+                        </div>
+                        <!--//app-card-body-->
+                        <a class="app-card-link-mask" href="#"></a>
+                    </div>
+                    <!--//app-card-->
+                </div>
+                <!--//col-->
+            </div>
+            <!--//row-->
         </div>
-        <!--//app-content-->
-
-
+        <!--//container-fluid-->
     </div>
+    <!--//app-content-->
 
+
+</div>
 @endsection
 
 

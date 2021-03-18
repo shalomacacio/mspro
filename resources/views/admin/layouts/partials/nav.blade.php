@@ -3,7 +3,7 @@
                 
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('admin.home') }}">
                         <span class="nav-icon">
                             @include('admin.layouts.svg.megaphone')
                         </span>
