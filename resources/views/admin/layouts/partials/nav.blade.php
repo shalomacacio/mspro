@@ -5,9 +5,9 @@
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link" href="{{ route('admin.home') }}">
                         <span class="nav-icon">
-                            @include('admin.layouts.svg.megaphone')
+                            @include('admin.layouts.svg.home')
                         </span>
-                        <span class="nav-link-text">Informações</span>
+                        <span class="nav-link-text">Dashboard</span>
                     </a>
                     <!--//nav-link-->
                 </li>

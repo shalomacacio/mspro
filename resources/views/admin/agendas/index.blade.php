@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="app-wrapper">
 	    
     <div class="app-content pt-3 p-md-3 p-lg-4">
@@ -67,7 +69,7 @@
                                             <th class="cell">CPF</th>
                                             <th class="cell">CNS</th>
                                             <th class="cell">CELULAR</th>
-                                            <th class="cell"><input type="checkbox" name="all" ></th>
+                                            <th class="cell">AÇÕES</th>
 
                                         </tr>
                                     </thead>
@@ -84,7 +86,7 @@
                                                     <td class="cell">{{ $agenda->paciente->cpf }}</td>  
                                                     <td class="cell">{{ $agenda->paciente->cns }}</td>  
                                                     <td class="cell">{{ $agenda->paciente->celular }}</td> 
-                                                    <td class="cell"><input type="checkbox" name="pacientes[]" value="0" /></td>
+                                                    <td class="cell"><a class="btn-sm app-btn-primary" href="#">Atender</a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -134,6 +136,7 @@
     </div><!--//app-content-->
     
     
-</div><!--//app-wrapper-->    	
+</div><!--//app-wrapper-->   
+
     
 @endsection
