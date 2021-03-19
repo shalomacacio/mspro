@@ -17,12 +17,16 @@
                             <div class="col-auto">
                                 <form class="table-search-form row gx-1 align-items-center">
                                     @csrf
-                                    <select class="form-select w-auto" name="campanha_id" required >
-                                        <option selected value=" ">--CAMPANHA--</option>
-                                        @foreach ($campanhas as $camp)
-                                            <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
-                                        @endforeach
-                                    </select>
+
+                                    <div class="col-auto">
+                                        <select class="form-select w-auto" name="campanha_id" required >
+                                            <option selected value=" ">--CAMPANHA--</option>
+                                            @foreach ($campanhas as $camp)
+                                                <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                    </div>
 
                                     <div class="col-auto">
                                         <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" required>

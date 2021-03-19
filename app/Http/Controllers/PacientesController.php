@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Agenda;
+use App\Entities\Bairro;
 use App\Entities\Campanha;
+use App\Entities\Comorbidade;
 use App\Entities\Paciente;
+use App\Entities\Ubs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -63,6 +66,13 @@ class PacientesController extends Controller
         }
 
         return view('admin.pacientes.index', compact('pacientes'));
+    }
+
+    public function create(){
+        $bairros = Bairro::all();
+        $comorbidades = Comorbidade::all();
+        $ubs =  Ubs::all();
+        return view('admin.pacientes.create', compact('bairros','comorbidades', 'ubs'));
     }
 
     /**
@@ -136,8 +146,12 @@ class PacientesController extends Controller
     public function edit($id)
     {
         $paciente = $this->repository->find($id);
+        $bairros = Bairro::all();
+        $ubs = Ubs::all();
+        $comorbidades = Comorbidade::all();
+        
 
-        return view('admin.pacientes.edit', compact('paciente'));
+        return view('admin.pacientes.edit', compact('paciente', 'bairros', 'ubs', 'comorbidades'));
     }
 
     /**

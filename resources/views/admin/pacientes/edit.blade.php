@@ -27,13 +27,14 @@
                             </div><!--//row-->
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
-                            <form class="settings-form"  action="{{ route('pacientes.store') }}" method="POST">
+                            <form class="settings-form"  action="{{ route('pacientes.update', $paciente->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 @include('admin.pacientes.form')
                             
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Salvar</button>
+                                    <button class="btn app-btn-secondary" type="submit" >Atualizar</button>
                                 </div><!--//app-card-footer-->
                             </form>
                        

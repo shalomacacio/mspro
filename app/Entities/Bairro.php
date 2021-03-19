@@ -20,6 +20,10 @@ class Bairro extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'cidad_id',
+        'nome'
+    ];
+    
 
 }

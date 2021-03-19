@@ -20,6 +20,12 @@ class Comorbidade extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'descricao'
+    ];
+
+    public function paciente(){
+        return $this->belongsToMany('App\Entities\Paciente', 'comorbidade_paciente');
+    }
 
 }

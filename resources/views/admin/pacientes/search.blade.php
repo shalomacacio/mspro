@@ -34,12 +34,12 @@
                                 
                             </div><!--//col-->
   
-                            <div class="col-auto">						    
+                            {{-- <div class="col-auto">						    
                                 <a class="btn app-btn-secondary" href="#">
                                     @include('admin.layouts.svg.download')
                                     Download CSV
                                 </a>
-                            </div>
+                            </div> --}}
                         </div><!--//row-->
                     </div><!--//table-utilities-->
                 </div><!--//col-auto-->
@@ -67,7 +67,7 @@
                                             <th class="cell">IDADE</th>
                                             <th class="cell">CNS</th>
                                             <th class="cell">CELULAR</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">AÇÕES</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,6 +81,7 @@
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
                                                 <td class="cell">{{ $paciente->celular }}</td>
+                                                <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('pacientes.show', $paciente->id ) }}">Ver</a></td>
                                             </tr>
                                             @endforeach
                                         @endisset
