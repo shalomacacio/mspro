@@ -27,5 +27,6 @@ Route::prefix('admin')->group(function () {
     
     Route::resource('pacientes', 'PacientesController');
     Route::resource('agendas', 'AgendasController');
+    Route::resource('campanhas', 'CampanhasController');
 
 });

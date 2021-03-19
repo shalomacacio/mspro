@@ -58,7 +58,11 @@ class CampanhasController extends Controller
             ]);
         }
 
-        return view('campanhas.index', compact('campanhas'));
+        return view('admin.campanhas.index', compact('campanhas'));
+    }
+
+    public function create(){
+        return view('admin.campanhas.create');
     }
 
     /**
@@ -119,7 +123,7 @@ class CampanhasController extends Controller
             ]);
         }
 
-        return view('campanhas.show', compact('campanha'));
+        return view('admin.campanhas.show', compact('campanha'));
     }
 
     /**
@@ -133,7 +137,7 @@ class CampanhasController extends Controller
     {
         $campanha = $this->repository->find($id);
 
-        return view('campanhas.edit', compact('campanha'));
+        return view('admin.campanhas.edit', compact('campanha'));
     }
 
     /**

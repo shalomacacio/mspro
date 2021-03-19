@@ -20,6 +20,11 @@ class Campanha extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'titulo',
+        'descricao',
+        'dt_inicio',
+        'dt_fim'
+    ];
 
 }

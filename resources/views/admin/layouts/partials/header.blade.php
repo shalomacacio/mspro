@@ -62,8 +62,7 @@
                             </a><!--//nav-link-->
                             <div id="submenu-3" class="collapse submenu submenu-1" data-parent="#menu-accordion">
                                 <ul class="submenu-list list-unstyled">
-                                    <li class="submenu-item"><a class="submenu-link" href="#">Bairros</a></li>
-                                    <li class="submenu-item"><a class="submenu-link" href="#">Ubs</a></li>
+                                    <li class="submenu-item"><a class="submenu-link" href="{{ route('campanhas.index') }}">Campanhas</a></li>
                                 </ul>
                             </div>
                         </li><!--//nav-item-->
