@@ -36,8 +36,8 @@
     <label for="sexo" class="form-label @error('sexo') is-invalid @enderror">Sexo</label>
     <select class="form-control" id="sexo" name="sexo">
         <option value=" ">--SELECIONE--</option>
-        <option @if($paciente->sexo === "M") selected  @endif value="M">MASCULINO</option>
-        <option @if($paciente->sexo === "F") selected  @endif value="F">FEMININO</option>
+            <option @isset($paciente->sexo) @if($paciente->sexo === "M") selected  @endif @endisset value="M">MASCULINO</option>
+            <option @isset($paciente->sexo) @if($paciente->sexo === "F") selected  @endif @endisset  value="F">FEMININO</option>
     </select>
     <div class="invalid-feedback">@error('sexo') {{ $message }} @enderror</div>
 </div>
