@@ -6,6 +6,9 @@
 	    
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
+            {{-- alerts --}}
+            @include('admin.layouts.alerts.session')
+            @include('admin.layouts.alerts.errors')
             
             <h1 class="app-page-title">Paciente</h1>
             <div class="row gy-4">
@@ -28,8 +31,8 @@
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
                             <form class="settings-form"  action="{{ route('pacientes.update', $paciente->id) }}" method="POST">
-                                @csrf
                                 @method('PUT')
+                                @csrf
                                 @include('admin.pacientes.form')
                             
                                 </div><!--//app-card-body-->

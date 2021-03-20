@@ -6,7 +6,8 @@
 	    
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            
+            {{-- alerts --}}
+            @include('admin.layouts.alerts.session')
             <h1 class="app-page-title">Paciente</h1>
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">
@@ -130,6 +131,7 @@
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
                            <a class="btn app-btn-secondary" href="{{ route('pacientes.edit', $paciente->id) }}">Editar</a>
+                           <a class="btn app-btn-secondary" href="{{ route('agendas.agendarForm', $paciente->id)}}">Agendar</a>
                            <a class="btn app-btn-secondary" href="#">Atender</a>
                         </div><!--//app-card-footer-->
                        

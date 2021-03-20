@@ -8,7 +8,7 @@
         <div class="container-xl">
             {{-- alerts --}}
             @include('admin.layouts.alerts.session')
-            <h1 class="app-page-title">Cadastro</h1>
+            <h1 class="app-page-title">Atendimento</h1>
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -23,21 +23,16 @@
                                     
                                 </div><!--//col-->
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Campanha</h4>
+                                    <h4 class="app-card-title">Paciente</h4>
                                 </div><!--//col-->
                             </div><!--//row-->
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
-                            <form class="settings-form"  action="{{ route('campanhas.store') }}" method="POST">
-                                @csrf
-                                @include('admin.campanhas.form')
-                            
-                                </div><!--//app-card-body-->
-                                <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Salvar</button>
-                                </div><!--//app-card-footer-->
-                            </form>
-                       
+                            @include('admin.atendimentos.dados')
+                        </div><!--//app-card-body-->
+                        <div class="app-card-footer p-4 mt-auto">
+                            <button class="btn app-btn-secondary" type="submit" >Concluir</button>
+                        </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->
                 <div class="col-12 col-lg-6">
@@ -53,7 +48,7 @@
                                     
                                 </div><!--//col-->
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Comorbidades</h4>
+                                    <h4 class="app-card-title">Realizar Atendimento</h4>
                                 </div><!--//col-->
                             </div><!--//row-->
                         </div><!--//app-card-header-->
@@ -62,11 +57,15 @@
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     
-                                    {{-- <div class="col-auto">
-                                        @foreach ($comorbidades as $comorb)
-                                        <div class="item-label"><strong>{{ $comorb->descricao }} </strong></div>
-                                        @endforeach
-                                    </div><!--//col--> --}}
+                            <form class="settings-form"  action="{{ route('atendimentos.store') }}" method="POST">
+                                @csrf
+                                @include('admin.atendimentos.form')
+                            
+                                </div><!--//app-card-body-->
+                                <div class="app-card-footer p-4 mt-auto">
+                                    <button class="btn app-btn-secondary" type="submit" >Concluir</button>
+                                </div><!--//app-card-footer-->
+                            </form>
 
                                 </div><!--//row-->
                             </div><!--//item-->

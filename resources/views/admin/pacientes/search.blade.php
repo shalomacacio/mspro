@@ -80,13 +80,11 @@
                                                 <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
-                                                <td class="cell">{{ $paciente->celular }}</td>
-                                                <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('pacientes.show', $paciente->id ) }}">Ver</a></td>
+                                                <td class="cell"><a href="http://wa.me/55{{ $paciente->celular }}" target="_blank"> {{ $paciente->celular }}</a></td>
+                                                <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('pacientes.show', $paciente->id ) }}">Visualizar</a></td>
                                             </tr>
                                             @endforeach
                                         @endisset
-                                        
-    
                                     </tbody>
                                 </table>
                             </div><!--//table-responsive-->

@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class Campanha.
+ * Class Vacina.
  *
  * @package namespace App\Entities;
  */
-class Campanha extends Model implements Transformable
+class Vacina extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -20,17 +20,6 @@ class Campanha extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [
-        'titulo',
-        'descricao',
-        'dt_inicio',
-        'dt_fim',
-        'ativa'
-    ];
-
-    protected $casts = [
-        'ativa' => 'boolean',
-    ];
-
+    protected $fillable = [];
 
 }

@@ -31,6 +31,6 @@
 
 <div class="mb-3">
   <label for="ativa" class="form-label @error('ativa') is-invalid @enderror">Ativa</label>
-  <input type="checkbox" name="ativa"  />
+  <input type="checkbox" name="ativa"  value="1"  />
   <div class="invalid-feedback">@error('ativa') {{ $message }} @enderror</div>
 </div>

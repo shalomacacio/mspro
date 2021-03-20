@@ -6,11 +6,11 @@ use \Prettus\Validator\Contracts\ValidatorInterface;
 use \Prettus\Validator\LaravelValidator;
 
 /**
- * Class AgendaValidator.
+ * Class AtendimentoValidator.
  *
  * @package namespace App\Validators;
  */
-class AgendaValidator extends LaravelValidator
+class AtendimentoValidator extends LaravelValidator
 {
     /**
      * Validation Rules
@@ -18,13 +18,7 @@ class AgendaValidator extends LaravelValidator
      * @var array
      */
     protected $rules = [
-        ValidatorInterface::RULE_CREATE => [
-            'campanha_id' => 'required'
-        ],
+        ValidatorInterface::RULE_CREATE => [],
         ValidatorInterface::RULE_UPDATE => [],
-    ];
-
-    protected $attributes = [
-        'campanha_id' => 'campanha',
     ];
 }

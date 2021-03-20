@@ -3,46 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Agenda;
-use App\Entities\Bairro;
-use App\Entities\Campanha;
-use App\Entities\Comorbidade;
 use App\Entities\Paciente;
-use App\Entities\Ubs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\PacienteCreateRequest;
-use App\Http\Requests\PacienteUpdateRequest;
-use App\Repositories\PacienteRepository;
-use App\Validators\PacienteValidator;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AtendimentoCreateRequest;
+use App\Http\Requests\AtendimentoUpdateRequest;
+use App\Repositories\AtendimentoRepository;
+use App\Validators\AtendimentoValidator;
 
 /**
- * Class PacientesController.
+ * Class AtendimentosController.
  *
  * @package namespace App\Http\Controllers;
  */
-class PacientesController extends Controller
+class AtendimentosController extends Controller
 {
     /**
-     * @var PacienteRepository
+     * @var AtendimentoRepository
      */
     protected $repository;
 
     /**
-     * @var PacienteValidator
+     * @var AtendimentoValidator
      */
     protected $validator;
 
     /**
-     * PacientesController constructor.
+     * AtendimentosController constructor.
      *
-     * @param PacienteRepository $repository
-     * @param PacienteValidator $validator
+     * @param AtendimentoRepository $repository
+     * @param AtendimentoValidator $validator
      */
-    public function __construct(PacienteRepository $repository, PacienteValidator $validator)
+    public function __construct(AtendimentoRepository $repository, AtendimentoValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -56,45 +51,43 @@ class PacientesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $pacientes = $this->repository->all();
+        $atendimentos = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $pacientes,
+                'data' => $atendimentos,
             ]);
         }
 
-        return view('admin.pacientes.index', compact('pacientes'));
+        return view('atendimentos.index', compact('atendimentos'));
     }
 
-    public function create(){
-        $bairros = Bairro::all();
-        $comorbidades = Comorbidade::all();
-        $ubs =  Ubs::all();
-        return view('admin.pacientes.create', compact('bairros','comorbidades', 'ubs'));
+    public function create($paciente_id){
+        $paciente = Paciente::find($paciente_id );
+        return view('admin.atendimentos.create', compact('paciente'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PacienteCreateRequest $request
+     * @param  AtendimentoCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PacienteCreateRequest $request)
+    public function store(AtendimentoCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $paciente = $this->repository->create($request->all());
+            $atendimento = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Paciente created.',
-                'data'    => $paciente->toArray(),
+                'message' => 'Atendimento created.',
+                'data'    => $atendimento->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,6 +103,7 @@ class PacientesController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
+
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -123,16 +117,16 @@ class PacientesController extends Controller
      */
     public function show($id)
     {
-        $paciente = $this->repository->find($id);
+        $atendimento = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $paciente,
+                'data' => $atendimento,
             ]);
         }
 
-        return view('admin.pacientes.show', compact('paciente'));
+        return view('atendimentos.show', compact('atendimento'));
     }
 
     /**
@@ -144,36 +138,32 @@ class PacientesController extends Controller
      */
     public function edit($id)
     {
-        $paciente = $this->repository->find($id);
-        $bairros = Bairro::all();
-        $ubs = Ubs::all();
-        $comorbidades = Comorbidade::all();
-        
+        $atendimento = $this->repository->find($id);
 
-        return view('admin.pacientes.edit', compact('paciente', 'bairros', 'ubs', 'comorbidades'));
+        return view('atendimentos.edit', compact('atendimento'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PacienteUpdateRequest $request
+     * @param  AtendimentoUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PacienteUpdateRequest $request, $id)
+    public function update(AtendimentoUpdateRequest $request, $id)
     {
         try {
 
-            $this->validator->with($request->all())->setId($id)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $paciente = $this->repository->update($request->all(), $id);
+            $atendimento = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Paciente updated.',
-                'data'    => $paciente->toArray(),
+                'message' => 'Atendimento updated.',
+                'data'    => $atendimento->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -211,29 +201,11 @@ class PacientesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Paciente deleted.',
+                'message' => 'Atendimento deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Paciente deleted.');
+        return redirect()->back()->with('message', 'Atendimento deleted.');
     }
-
-    public function search(Request $request){
-        
-        $filter = $request->filter;
-        $value = $request->value;
-        $pacientes = null;
-
-        if($filter != null){
-            if($filter == 'nome'){
-                $pacientes = DB::table('pacientes')->where('nome','like', '%'.$value.'%')->get();
-            } else {
-                $pacientes = DB::table('pacientes')->where($filter,$value )->get();
-            }
-        }
-    
-        return view('admin.pacientes.search', compact('pacientes'));
-    }
-
 }

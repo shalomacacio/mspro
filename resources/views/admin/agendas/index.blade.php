@@ -8,6 +8,8 @@
 	    
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
+            {{-- alerts --}}
+            @include('admin.layouts.alerts.session')
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
@@ -86,7 +88,7 @@
                                                     <td class="cell">{{ $agenda->paciente->cpf }}</td>  
                                                     <td class="cell">{{ $agenda->paciente->cns }}</td>  
                                                     <td class="cell">{{ $agenda->paciente->celular }}</td> 
-                                                    <td class="cell"><a class="btn-sm app-btn-primary" href="#">Atender</a></td>
+                                                    <td class="cell"><a class="btn-sm app-btn-primary" href="{{ route('atendimentos.create', $agenda->paciente_id) }}">Atender</a></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

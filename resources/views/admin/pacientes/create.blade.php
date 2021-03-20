@@ -6,7 +6,8 @@
 	    
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-            
+            {{-- alerts --}}
+            @include('admin.layouts.alerts.session')
             <h1 class="app-page-title">Paciente</h1>
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">

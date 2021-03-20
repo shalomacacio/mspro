@@ -28,7 +28,10 @@
 <div class="mb-3">
     <label for="dt_nascimento" class="form-label @error('dt_nascimento') is-invalid @enderror">Data de
         Nascimento</label>
-    <input type="date" class="form-control" id="dt_nascimento" name="dt_nascimento">
+    <input type="date" class="form-control" id="dt_nascimento" name="dt_nascimento"
+    @isset($paciente->dt_nascimento)
+        value="{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('Y-m-d') }}"
+    @endisset>
     <div class="invalid-feedback">@error('dt_nascimento') {{ $message }} @enderror</div>
 </div>
 
@@ -61,11 +64,11 @@
 </div>
 
 <div class="mb-3">
-    <label for="bairro" class="form-label @error('bairro') is-invalid @enderror">Bairro</label>
-    <select class="form-control" name="bairro">
-        <option selected="" value=" ">--SELECIONE--</option>
+    <label for="bairro_id" class="form-label @error('bairro_id') is-invalid @enderror">Bairro</label>
+    <select class="form-control" name="bairro_id">
+        <option value=" ">--SELECIONE--</option>
         @foreach ($bairros as $bairro)
-            <option value="{{ $bairro->id }}">{{ $bairro->nome }}</option>
+            <option @isset($paciente->bairro_id) selected @endisset  value="{{ $bairro->id }}">{{ $bairro->nome }}</option>
         @endforeach
     </select>
     <div class="invalid-feedback">@error('bairro') {{ $message }} @enderror</div>
@@ -93,7 +96,7 @@
     <select class="form-control" id="ubs_id" name="ubs_id" required>
         <option  value=" ">--SELECIONE--</option>
         @foreach ($ubs as $u)
-            <option value="{{ $u->id }}">{{ $u->nome }}</option>
+            <option value="{{ $u->id }}" @isset($paciente->ubs_id) selected @endisset > {{ $u->nome }}</option>
         @endforeach
     </select>
     <div class="invalid-feedback">@error('ubs_id') {{ $message }} @enderror</div>

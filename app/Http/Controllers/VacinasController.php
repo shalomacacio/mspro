@@ -2,47 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\Agenda;
-use App\Entities\Bairro;
-use App\Entities\Campanha;
-use App\Entities\Comorbidade;
-use App\Entities\Paciente;
-use App\Entities\Ubs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\PacienteCreateRequest;
-use App\Http\Requests\PacienteUpdateRequest;
-use App\Repositories\PacienteRepository;
-use App\Validators\PacienteValidator;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\VacinaCreateRequest;
+use App\Http\Requests\VacinaUpdateRequest;
+use App\Repositories\VacinaRepository;
+use App\Validators\VacinaValidator;
 
 /**
- * Class PacientesController.
+ * Class VacinasController.
  *
  * @package namespace App\Http\Controllers;
  */
-class PacientesController extends Controller
+class VacinasController extends Controller
 {
     /**
-     * @var PacienteRepository
+     * @var VacinaRepository
      */
     protected $repository;
 
     /**
-     * @var PacienteValidator
+     * @var VacinaValidator
      */
     protected $validator;
 
     /**
-     * PacientesController constructor.
+     * VacinasController constructor.
      *
-     * @param PacienteRepository $repository
-     * @param PacienteValidator $validator
+     * @param VacinaRepository $repository
+     * @param VacinaValidator $validator
      */
-    public function __construct(PacienteRepository $repository, PacienteValidator $validator)
+    public function __construct(VacinaRepository $repository, VacinaValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -56,45 +49,38 @@ class PacientesController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $pacientes = $this->repository->all();
+        $vacinas = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $pacientes,
+                'data' => $vacinas,
             ]);
         }
 
-        return view('admin.pacientes.index', compact('pacientes'));
-    }
-
-    public function create(){
-        $bairros = Bairro::all();
-        $comorbidades = Comorbidade::all();
-        $ubs =  Ubs::all();
-        return view('admin.pacientes.create', compact('bairros','comorbidades', 'ubs'));
+        return view('vacinas.index', compact('vacinas'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PacienteCreateRequest $request
+     * @param  VacinaCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PacienteCreateRequest $request)
+    public function store(VacinaCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $paciente = $this->repository->create($request->all());
+            $vacina = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Paciente created.',
-                'data'    => $paciente->toArray(),
+                'message' => 'Vacina created.',
+                'data'    => $vacina->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,6 +96,7 @@ class PacientesController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
+
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -123,16 +110,16 @@ class PacientesController extends Controller
      */
     public function show($id)
     {
-        $paciente = $this->repository->find($id);
+        $vacina = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $paciente,
+                'data' => $vacina,
             ]);
         }
 
-        return view('admin.pacientes.show', compact('paciente'));
+        return view('vacinas.show', compact('vacina'));
     }
 
     /**
@@ -144,36 +131,32 @@ class PacientesController extends Controller
      */
     public function edit($id)
     {
-        $paciente = $this->repository->find($id);
-        $bairros = Bairro::all();
-        $ubs = Ubs::all();
-        $comorbidades = Comorbidade::all();
-        
+        $vacina = $this->repository->find($id);
 
-        return view('admin.pacientes.edit', compact('paciente', 'bairros', 'ubs', 'comorbidades'));
+        return view('vacinas.edit', compact('vacina'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PacienteUpdateRequest $request
+     * @param  VacinaUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PacienteUpdateRequest $request, $id)
+    public function update(VacinaUpdateRequest $request, $id)
     {
         try {
 
-            $this->validator->with($request->all())->setId($id)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $paciente = $this->repository->update($request->all(), $id);
+            $vacina = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Paciente updated.',
-                'data'    => $paciente->toArray(),
+                'message' => 'Vacina updated.',
+                'data'    => $vacina->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -211,29 +194,11 @@ class PacientesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Paciente deleted.',
+                'message' => 'Vacina deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Paciente deleted.');
+        return redirect()->back()->with('message', 'Vacina deleted.');
     }
-
-    public function search(Request $request){
-        
-        $filter = $request->filter;
-        $value = $request->value;
-        $pacientes = null;
-
-        if($filter != null){
-            if($filter == 'nome'){
-                $pacientes = DB::table('pacientes')->where('nome','like', '%'.$value.'%')->get();
-            } else {
-                $pacientes = DB::table('pacientes')->where($filter,$value )->get();
-            }
-        }
-    
-        return view('admin.pacientes.search', compact('pacientes'));
-    }
-
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Agenda;
 use App\Entities\Campanha;
+use App\Entities\Paciente;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -13,6 +14,7 @@ use App\Http\Requests\AgendaCreateRequest;
 use App\Http\Requests\AgendaUpdateRequest;
 use App\Repositories\AgendaRepository;
 use App\Validators\AgendaValidator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AgendasController.
@@ -41,6 +43,7 @@ class AgendasController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->middleware('checkagendado')->only('store');
     }
 
     /**
@@ -90,7 +93,7 @@ class AgendasController extends Controller
             $agenda = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Agenda created.',
+                'message' => 'Agendamento criado com sucesso.',
                 'data'    => $agenda->toArray(),
             ];
 
@@ -107,9 +110,40 @@ class AgendasController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
-
+            // return dd($e->getMessageBag());
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
+    }
+
+    public function agendarForm($pacienteId){
+        $paciente = Paciente::find($pacienteId);
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+        return view('admin.agendas.AgendarForm', compact('paciente', 'campanhas'));
+    }
+
+    public function agendarLoteForm(Request $request){
+        $idade_min = $request->idade_min;
+        $idade_max = $request->idade_max;
+
+        $pacientes = null;
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+
+        $campanha_id = $request->campanha_id;
+        $agenda = Agenda::where('campanha_id', $campanha_id)->get();
+
+        if($agenda){
+            $ja_agendados = $agenda->pluck('paciente_id')->toArray();
+        }
+
+        if($request != null){
+            $pacientes = DB::table('pacientes as p')
+            ->join('ubs as u', 'p.ubs_id', 'u.id')
+            ->select('p.id', 'p.nome', 'p.cpf', 'p.cns','p.celular', 'p.dt_nascimento', 'u.nome as ubs')
+            ->whereNotIN('p.id', $ja_agendados)
+            ->get()
+            ->sortBy('dt_nascimento');
+        }
+        return view('admin.agendas.agendarLoteForm', compact('pacientes', 'campanhas', 'idade_min', 'idade_max', 'campanha_id'));
     }
 
 
