@@ -119,7 +119,7 @@ class AgendasController extends Controller
     public function agendarForm($pacienteId){
         $paciente = Paciente::find($pacienteId);
         $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
-        return view('admin.agendas.AgendarForm', compact('paciente', 'campanhas'));
+        return view('admin.agendas.agendarForm', compact('paciente', 'campanhas'));
     }
 
     public function agendarLoteForm(Request $request){
