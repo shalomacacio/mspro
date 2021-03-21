@@ -46,7 +46,7 @@
                     <div id="submenu-2" class="collapse submenu submenu-2" data-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a class="submenu-link" href="{{ route('pacientes.create') }}">Novo Paciente</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="{{ route('agendas.agendarLoteForm') }}">Agendamento em Lote</a></li>
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('agendas.selectCampanha') }}">Agendamento em Lote</a></li>
 
                         </ul>
                     </div>

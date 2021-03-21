@@ -29,6 +29,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/agendas/{pacienteId}/agendarForm', 'AgendasController@agendarForm')->name('agendas.agendarForm');
     Route::get('/agendas/agendarLoteForm', 'AgendasController@agendarLoteForm')->name('agendas.agendarLoteForm');
     
+    Route::get('/agendas/selectCampanha', 'AgendasController@selectCampanha')->name('agendas.selectCampanha');
+
     //atendimentos
     Route::get('atendimentos/{paciente_id}/create', 'AtendimentosController@create')->name('atendimentos.create');
     

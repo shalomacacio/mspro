@@ -122,9 +122,19 @@ class AgendasController extends Controller
         return view('admin.agendas.agendarForm', compact('paciente', 'campanhas'));
     }
 
+    public function selectCampanha(){
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+        return view('admin.agendas.select_campanha', compact('campanhas'));
+    }
+
+
     public function agendarLoteForm(Request $request){
+
         $ubs = Ubs::all();
         $campanhas = Campanha::all();
+        $campanha_id = $request->campanha_id;
+        $agendados = Agenda::where('campanha_id', $campanha_id)->get()->pluck('paciente_id')->toArray();
+
         
         if(is_null ($request->ubs_id)){  
             $ubs_id = $ubs->pluck('id')->toArray(); 
@@ -137,10 +147,10 @@ class AgendasController extends Controller
         } else {
             $idade_min = $request->idade_min;  
         }
-
        
         $result = DB::table('pacientes as p')
             ->join('ubs as u', 'p.ubs_id', 'u.id')
+            ->whereNotIn('p.id', $agendados)
             ->whereIn('ubs_id', $ubs_id)
             ->selectRaw(' * ,p.id as id,  p.nome as nome, p.cpf, p.dt_nascimento , u.nome as ubs , YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) AS idade')
             ->whereRaw("YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) >='".$idade_min."'")
@@ -148,7 +158,7 @@ class AgendasController extends Controller
     
         $pacientes = $result->sortBy('nome');
 
-        return view('admin.agendas.agendarLoteForm', compact('pacientes', 'campanhas', 'ubs' ,'idade_min'));
+        return view('admin.agendas.agendarLoteForm', compact('pacientes', 'campanhas', 'ubs', 'request'));
     }
 
 

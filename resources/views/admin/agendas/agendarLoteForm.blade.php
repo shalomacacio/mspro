@@ -11,7 +11,7 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Agendamento em Lote: {{ $pacientes->count()  }} </h1>
+                    <h1 class="app-page-title mb-0">Agendamento em Lote: {{ $pacientes->count()}} </h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
@@ -28,12 +28,12 @@
 
                                     <div class="col-auto">
                                         <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" 
-                                        @if ($idade_min)
-                                        value="{{ $idade_min }}"  
+                                        @if ($request->idade_min)
+                                        value="{{ $request->idade_min}}"  
                                         @endif
                                         >
                                     </div>                                  
-
+                                    <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}"/>
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>
                                     </div>
@@ -71,7 +71,7 @@
                                             <th class="cell">CNS</th>
                                             <th class="cell">UBS </th>
                                             <th class="cell">CELULAR</th>
-                                            <th class="cell"><input type="checkbox" name="all" ></th>
+                                            <th class="cell">#</th>
                                         </tr>
                                     </thead>
                             
@@ -88,7 +88,7 @@
                                                      <td class="cell">{{ $paciente->cns }}</td>
                                                      <td class="cell">{{ $paciente->ubs }}</td>
                                                     <td class="cell">{{ $paciente->celular }}</td>
-                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($idade_min) checked @endisset /></td>
+                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($request->idade_min) checked @endisset /></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -106,22 +106,12 @@
                                                         <input type="date" name="dh_agendamento" class="form-control search-orders" required>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="col-auto">
-                                                        <select class="form-select w-auto" name="campanha_id" required >
-                                                            <option selected value=" ">--CAMPANHA--</option>
-                                                            @foreach ($campanhas as $camp)
-                                                                <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        
-                                                    </div>
-                                                </td>
+                                                <td> </td>
                                                 <td>
                                                     <input type="hidden" name="user_id" value="{{Auth::id()}}" />
-                                                    {{-- <input type="hidden" name="campanha_id" value="{{ $campanha_id }}" required /> --}}
+                                                    <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}" required />
                                                    <div class="col-auto">
-                                                        <button type="submit" class="btn app-btn-secondary"> Agendar </button>
+                                                        <button type="submit" class="btn app-btn-secondary" onclick="return confirm('Confirmar agendamento em lote?')" > Agendar </button>
                                                     </div>
                                                 </td> 
                                             </tr> 
