@@ -79,7 +79,7 @@ class UbsController extends Controller
             $ub = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Ubs created.',
+                'message' => 'Ubs adicionado com sucesso!',
                 'data'    => $ub->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class UbsController extends Controller
             $ub = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Ubs updated.',
+                'message' => 'Ubs atulizado com sucesso!',
                 'data'    => $ub->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class UbsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Ubs deleted.',
+                'message' => 'Ubsexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Ubs deleted.');
+        return redirect()->back()->with('message', 'Ubs excluido.');
     }
 }

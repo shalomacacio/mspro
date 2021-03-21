@@ -79,7 +79,7 @@ class CidadesController extends Controller
             $cidade = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Cidade created.',
+                'message' => 'Cidade adicionado com sucesso!',
                 'data'    => $cidade->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class CidadesController extends Controller
             $cidade = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Cidade updated.',
+                'message' => 'Cidade atulizado com sucesso!',
                 'data'    => $cidade->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class CidadesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Cidade deleted.',
+                'message' => 'Cidadeexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Cidade deleted.');
+        return redirect()->back()->with('message', 'Cidade excluido.');
     }
 }

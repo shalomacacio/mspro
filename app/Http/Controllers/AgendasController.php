@@ -245,7 +245,7 @@ class AgendasController extends Controller
             $agenda = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Agenda updated.',
+                'message' => 'Agenda atulizado com sucesso!',
                 'data'    => $agenda->toArray(),
             ];
 
@@ -284,11 +284,11 @@ class AgendasController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Agenda deleted.',
+                'message' => 'Agendaexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Agenda deleted.');
+        return redirect()->back()->with('message', 'Agenda excluido.');
     }
 }

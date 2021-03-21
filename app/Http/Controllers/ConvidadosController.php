@@ -79,7 +79,7 @@ class ConvidadosController extends Controller
             $convidado = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Convidado created.',
+                'message' => 'Convidado adicionado com sucesso!',
                 'data'    => $convidado->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class ConvidadosController extends Controller
             $convidado = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Convidado updated.',
+                'message' => 'Convidado atulizado com sucesso!',
                 'data'    => $convidado->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class ConvidadosController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Convidado deleted.',
+                'message' => 'Convidadoexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Convidado deleted.');
+        return redirect()->back()->with('message', 'Convidado excluido.');
     }
 }

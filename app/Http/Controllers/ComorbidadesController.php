@@ -79,7 +79,7 @@ class ComorbidadesController extends Controller
             $comorbidade = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Comorbidade created.',
+                'message' => 'Comorbidade adicionado com sucesso!',
                 'data'    => $comorbidade->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class ComorbidadesController extends Controller
             $comorbidade = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Comorbidade updated.',
+                'message' => 'Comorbidade atulizado com sucesso!',
                 'data'    => $comorbidade->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class ComorbidadesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Comorbidade deleted.',
+                'message' => 'Comorbidadeexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Comorbidade deleted.');
+        return redirect()->back()->with('message', 'Comorbidade excluido.');
     }
 }

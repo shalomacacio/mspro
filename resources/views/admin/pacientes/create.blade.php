@@ -31,49 +31,19 @@
                             <form class="settings-form"  action="{{ route('pacientes.store') }}" method="POST">
                                 @csrf
                                 @include('admin.pacientes.form')
-                            
-                                </div><!--//app-card-body-->
+
+                                @foreach ($comorbidades as $comorbidade)
+                                <div class="form-check form-switch">
+                                  <input class="form-check-input" type="checkbox"  name="comorbidades[]" value="{{ $comorbidade->id }}">
+                                  <label class="form-check-label" > {{ $comorbidade->descricao }} </label>
+                                </div> 
+                                @endforeach
+
                                 <div class="app-card-footer p-4 mt-auto">
                                     <button class="btn app-btn-secondary" type="submit" >Salvar</button>
                                 </div><!--//app-card-footer-->
                             </form>
-                       
-                    </div><!--//app-card-->
-                </div><!--//col-->
-                <div class="col-12 col-lg-6">
-                    <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-                        <div class="app-card-header p-3 border-bottom-0">
-                            <div class="row align-items-center gx-3">
-                                <div class="col-auto">
-                                    <div class="app-icon-holder">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
-                                        </svg>
-                                    </div><!--//icon-holder-->
-                                    
-                                </div><!--//col-->
-                                <div class="col-auto">
-                                    <h4 class="app-card-title">Comorbidades</h4>
-                                </div><!--//col-->
-                            </div><!--//row-->
-                        </div><!--//app-card-header-->
-                        <div class="app-card-body px-4 w-100">
-                            
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    
-                                    <div class="col-auto">
-                                        @foreach ($comorbidades as $comorb)
-                                        <div class="item-label"><strong>{{ $comorb->descricao }} </strong></div>
-                                        @endforeach
-                                    </div><!--//col-->
-
-                                </div><!--//row-->
-                            </div><!--//item-->
-                           
                         </div><!--//app-card-body-->
-
-                       
                     </div><!--//app-card-->
                 </div><!--//col-->
             </div><!--//row-->

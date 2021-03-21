@@ -31,7 +31,7 @@
                             @include('admin.atendimentos.dados')
                         </div><!--//app-card-body-->
                         <div class="app-card-footer p-4 mt-auto">
-                            <button class="btn app-btn-secondary" type="submit" >Concluir</button>
+                            {{-- <button class="btn app-btn-secondary" type="submit" >Concluir</button> --}}
                         </div><!--//app-card-footer-->
                     </div><!--//app-card-->
                 </div><!--//col-->
@@ -63,7 +63,8 @@
                             
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Concluir</button>
+                                    <a class="btn app-btn-secondary" href="{{ route('agendas.agendarForm', $paciente->id) }}" >AGENDAR</a>
+                                    <button class="btn app-btn-secondary" type="submit" >VACINAR</button>
                                 </div><!--//app-card-footer-->
                             </form>
 

@@ -67,11 +67,18 @@
     <label for="bairro_id" class="form-label @error('bairro_id') is-invalid @enderror">Bairro</label>
     <select class="form-control" name="bairro_id">
         <option value=" ">--SELECIONE--</option>
+        
         @foreach ($bairros as $bairro)
-            <option @isset($paciente->bairro_id) selected @endisset  value="{{ $bairro->id }}">{{ $bairro->nome }}</option>
+            <option 
+            @isset($paciente->bairro_id )
+                @if($bairro->id === $paciente->bairro_id) 
+                selected 
+                @endif
+            @endisset value="{{ $bairro->id }}">{{ $bairro->nome }}</option>
         @endforeach
     </select>
-    <div class="invalid-feedback">@error('bairro') {{ $message }} @enderror</div>
+
+    <div class="invalid-feedback">@error('bairro_id') {{ $message }} @enderror</div>
 </div>
 
 <div class="mb-3">

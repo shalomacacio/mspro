@@ -85,7 +85,7 @@ class CampanhasController extends Controller
             $campanha = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Campanha created.',
+                'message' => 'Campanha adicionado com sucesso!',
                 'data'    => $campanha->toArray(),
             ];
 
@@ -161,7 +161,7 @@ class CampanhasController extends Controller
             $campanha = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Campanha updated.',
+                'message' => 'Campanha atulizado com sucesso!',
                 'data'    => $campanha->toArray(),
             ];
 
@@ -200,11 +200,11 @@ class CampanhasController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Campanha deleted.',
+                'message' => 'Campanhaexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Campanha deleted.');
+        return redirect()->back()->with('message', 'Campanha excluido.');
     }
 }

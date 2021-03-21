@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Agenda;
 use App\Entities\Paciente;
+use App\Entities\Vacina;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -60,12 +61,14 @@ class AtendimentosController extends Controller
             ]);
         }
 
-        return view('atendimentos.index', compact('atendimentos'));
+        return view('admin.atendimentos.index', compact('atendimentos'));
     }
 
     public function create($paciente_id){
+        $vacinas = Vacina::all();
         $paciente = Paciente::find($paciente_id );
-        return view('admin.atendimentos.create', compact('paciente'));
+        $agendas = Agenda::where('paciente_id', $paciente_id )->get();
+        return view('admin.atendimentos.create', compact('paciente','agendas' ,'vacinas'));
     }
 
     /**
@@ -86,14 +89,17 @@ class AtendimentosController extends Controller
             $atendimento = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Atendimento created.',
+                'message' => 'Atendimento adicionado com sucesso!',
                 'data'    => $atendimento->toArray(),
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
+
+            $agenda = Agenda::find( $atendimento->agenda_id);
+            $agenda->confirm = 'S';
+            $agenda->save();
 
             return redirect()->back()->with('message', $response['message']);
         } catch (ValidatorException $e) {
@@ -162,7 +168,7 @@ class AtendimentosController extends Controller
             $atendimento = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Atendimento updated.',
+                'message' => 'Atendimento atulizado com sucesso!',
                 'data'    => $atendimento->toArray(),
             ];
 
@@ -201,11 +207,11 @@ class AtendimentosController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Atendimento deleted.',
+                'message' => 'Atendimentoexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Atendimento deleted.');
+        return redirect()->back()->with('message', 'Atendimento excluido.');
     }
 }

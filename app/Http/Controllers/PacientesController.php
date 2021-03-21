@@ -89,13 +89,24 @@ class PacientesController extends Controller
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
             $paciente = $this->repository->create($request->all());
-
             $response = [
-                'message' => 'Paciente created.',
+                'message' => 'Paciente adicionado com sucesso!',
                 'data'    => $paciente->toArray(),
             ];
+
+            $comorbidades = $request->comorbidades;
+        
+            // salva no relacionamento
+            foreach ($comorbidades as $c) {
+                if($c == 1){
+                    $comorbidade = Comorbidade::find($c); 
+                    $paciente->comorbidades()->save($comorbidade);
+                    return redirect()->route('pacientes.show', $paciente->id);
+                }
+                $comorbidade = Comorbidade::find($c);
+                $paciente->comorbidades()->save($comorbidade);
+            }
 
             if ($request->wantsJson()) {
 
@@ -103,6 +114,7 @@ class PacientesController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
+            // return redirect()->route('pacientes.edit', $paciente->id)->with('message', $response['message']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
@@ -148,9 +160,10 @@ class PacientesController extends Controller
         $bairros = Bairro::all();
         $ubs = Ubs::all();
         $comorbidades = Comorbidade::all();
-        
+        $ids_comorb = $paciente->comorbidades->pluck('id')->toArray();
 
-        return view('admin.pacientes.edit', compact('paciente', 'bairros', 'ubs', 'comorbidades'));
+
+        return view('admin.pacientes.edit', compact('paciente', 'bairros', 'ubs', 'comorbidades', 'ids_comorb'));
     }
 
     /**
@@ -172,7 +185,7 @@ class PacientesController extends Controller
             $paciente = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Paciente updated.',
+                'message' => 'Paciente atulizado com sucesso!',
                 'data'    => $paciente->toArray(),
             ];
 
@@ -181,7 +194,8 @@ class PacientesController extends Controller
                 return response()->json($response);
             }
 
-            return redirect()->back()->with('message', $response['message']);
+            // return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('pacientes.show', $paciente->id);
         } catch (ValidatorException $e) {
 
             if ($request->wantsJson()) {
@@ -211,12 +225,12 @@ class PacientesController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Paciente deleted.',
+                'message' => 'Pacienteexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Paciente deleted.');
+        return redirect()->back()->with('message', 'Paciente excluido.');
     }
 
     public function search(Request $request){
@@ -234,6 +248,26 @@ class PacientesController extends Controller
         }
     
         return view('admin.pacientes.search', compact('pacientes'));
+    }
+
+    public function createComorb(Request $request){
+
+        $paciente_id = $request->paciente_id;
+        $paciente = Paciente::find('id', $paciente_id);
+        $comorbidades = $request->comorbidades;
+        
+        // salva no relacionamento
+        foreach ($comorbidades as $c) {
+            if($c == 1){
+                $comorbidade = Comorbidade::find($c); 
+                $paciente->comorbidades()->save($comorbidade);
+                return redirect()->route('paciente.show', $paciente->id);
+            }
+            $comorbidade = $this->comorbidadeRepository->find($c);
+            $paciente->comorbidades()->save($comorbidade);
+        }
+        
+        return redirect()->route('paciente.show', $paciente->id);
     }
 
 }

@@ -79,7 +79,7 @@ class ComunicadosController extends Controller
             $comunicado = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Comunicado created.',
+                'message' => 'Comunicado adicionado com sucesso!',
                 'data'    => $comunicado->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class ComunicadosController extends Controller
             $comunicado = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Comunicado updated.',
+                'message' => 'Comunicado atulizado com sucesso!',
                 'data'    => $comunicado->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class ComunicadosController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Comunicado deleted.',
+                'message' => 'Comunicadoexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Comunicado deleted.');
+        return redirect()->back()->with('message', 'Comunicado excluido.');
     }
 }

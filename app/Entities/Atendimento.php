@@ -29,4 +29,9 @@ class Atendimento extends Model implements Transformable
         'obs'
     ];
 
+
+    public function paciente(){
+        return $this->belongsTo(Paciente::class)
+    }
+
 }

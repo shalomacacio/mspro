@@ -160,9 +160,13 @@
                                 <div class="row justify-content-between align-items-center">
                                     
                                     <div class="col-auto">
-                                        @foreach ($paciente->comorbidades as $comorb)
-                                        <div class="item-label"><strong>{{ $comorb->descricao }} </strong></div>
-                                        @endforeach
+                                        @isset($paciente->comorbidades)
+                                        @if ( count($paciente->comorbidades) > 0 )
+                                            @foreach ($paciente->comorbidades as $comorb)
+                                            <div class="item-label"><strong class="text-danger">{{ $comorb->descricao }} </strong></div>
+                                            @endforeach
+                                        @endif
+                                        @endisset
                                     </div><!--//col-->
 
                                 </div><!--//row-->

@@ -37,7 +37,7 @@
                             
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Atualizar</button>
+                                    <button class="btn app-btn-secondary" type="submit" >Atualizar Paciente</button>
                                 </div><!--//app-card-footer-->
                             </form>
                        
@@ -65,11 +65,26 @@
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     
-                                    <div class="col-auto">
-                                        @foreach ($comorbidades as $comorb)
-                                        <div class="item-label"><strong>{{ $comorb->descricao }} </strong></div>
-                                        @endforeach
-                                    </div><!--//col-->
+                                    <form class="row g-3"  method="POST">
+                                        @csrf
+                                        @isset($paciente->comorbidades)
+                                        @if(count($paciente->comorbidades) > 0 )    
+                                        
+                                          @foreach ($comorbidades as $comorbidade)
+                                          <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox"  name="comorbidades[]" value="{{ $comorbidade->id }}" @if(in_array($comorbidade->id, $ids_comorb )) checked @endif>
+                                            <label class="form-check-label" > {{ $comorbidade->descricao }} </label>
+                                          </div> 
+                                          @endforeach
+
+                                        @endif
+                                        @endisset
+                                  
+                                        <div class="col-12">
+                                          <button class="btn app-btn-secondary" type="submit">Atualizar Comorbidades</button>
+                                        </div>
+                                  
+                                      </form>
 
                                 </div><!--//row-->
                             </div><!--//item-->

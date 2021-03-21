@@ -79,7 +79,7 @@ class BairrosController extends Controller
             $bairro = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Bairro created.',
+                'message' => 'Bairro adicionado com sucesso!',
                 'data'    => $bairro->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class BairrosController extends Controller
             $bairro = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Bairro updated.',
+                'message' => 'Bairro atulizado com sucesso!',
                 'data'    => $bairro->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class BairrosController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Bairro deleted.',
+                'message' => 'Bairroexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Bairro deleted.');
+        return redirect()->back()->with('message', 'Bairro excluido.');
     }
 }

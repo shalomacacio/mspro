@@ -79,7 +79,7 @@ class VacinasController extends Controller
             $vacina = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Vacina created.',
+                'message' => 'Vacina adicionado com sucesso!',
                 'data'    => $vacina->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class VacinasController extends Controller
             $vacina = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Vacina updated.',
+                'message' => 'Vacina atulizado com sucesso!',
                 'data'    => $vacina->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class VacinasController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Vacina deleted.',
+                'message' => 'Vacinaexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Vacina deleted.');
+        return redirect()->back()->with('message', 'Vacina excluido.');
     }
 }

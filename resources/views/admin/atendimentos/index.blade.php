@@ -11,7 +11,7 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Campanhas:</h1>
+                    <h1 class="app-page-title mb-0">Atendimentos:</h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
@@ -37,9 +37,9 @@
                                         <input type="number" name="idade_max" class="form-control search-orders" placeholder="IDADE MÁXIMA" required>
                                     </div>                                   --}}
 
-                                    <div class="col-auto">
+                                    {{-- <div class="col-auto">
                                         <a href="{{ route('campanhas.create') }}" class="btn app-btn-secondary"> Nova Campanha </a>
-                                    </div>
+                                    </div> --}}
                                 </form>
                                 
                             </div><!--//col-->
@@ -67,27 +67,22 @@
                                     <thead>
                                         <tr>
                                             <th class="cell">COD</th>
-                                            <th class="cell">TITULO</th>
-                                            <th class="cell">DESCRICAO</th>
-                                            <th class="cell">INICIO </th>
-                                            <th class="cell">FIM</th>
-                                            <th class="cell">ATIVA </th>
-                                            <th class="cell">AÇÕES </th>
+                                            <th class="cell">DATA </th>
+                                            <th class="cell">PACIENTE</th>
+                                            <th class="cell">CAMPANHA</th>
+                                            <th class="cell">TIPO VACINA  </th>
                                         </tr>
                                     </thead>
-                                    @isset($campanhas)
-                                    <form action="{{ route('campanhas.store')  }}" method="POST">
-                                        @csrf
+                                    @isset($atendimentos)
+                                    <form >
                                         <tbody>
-                                            @foreach ($campanhas as $campanha)
+                                            @foreach ($atendimentos as $atendimento)
                                                 <tr>
-                                                    <td class="cell">{{ $campanha->id }}</td>
-                                                    <td class="cell">{{ $campanha->titulo }}</td>
-                                                    <td class="cell">{{ $campanha->descricao }}</td>
-                                                    <td class="cell">{{ $campanha->dt_inicio }}</td>
-                                                    <td class="cell">{{ $campanha->dt_fim }}</td>
-                                                    <td class="cell">@if ($campanha->ativa == 0) NÃO  @else SIM @endif </td>
-                                                    <td class="cell"><a class="btn-sm app-btn-primary" href="{{ route('campanhas.edit', $campanha->id) }}">Editar</a></td>
+                                                    <td class="cell">{{ $atendimento->id }}</td>
+                                                    <td class="cell">{{ $atendimento->created_at }}</td>
+                                                    <td class="cell">{{ $atendimento->paciente->nome }}</td>
+                                                    <td class="cell">{{ $atendimento->agenda_id }}</td>
+                                                    <td class="cell">{{ $atendimento->vacina_id }}</td>
                                                 </tr>
                                                 
                                             @endforeach

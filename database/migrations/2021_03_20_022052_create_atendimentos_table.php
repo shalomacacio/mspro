@@ -22,7 +22,7 @@ class CreateAtendimentosTable extends Migration
 			$table->integer('vacina_id')->nullable();
 			$table->integer('agenda_id')->nullable();
 			$table->char('concluido')->default('S');
-			$table->text('obs');
+			$table->text('obs')->nullable();
             $table->timestamps();
 		});
 	}

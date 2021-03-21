@@ -60,7 +60,10 @@
                             <input type="hidden" name="user_id"  value="{{ Auth::user()->id }}" />
                             <div class="app-card-footer p-4 mt-auto">
                                 <button class="btn app-btn-secondary" type="submit" >Agendar</button>
+                                <a href="{{ route('atendimentos.create', $paciente->id) }}" class="btn app-btn-secondary"> Atender </a>
+
                             </div><!--//app-card-footer-->
+
                         </form>
                        
                     </div><!--//app-card-->

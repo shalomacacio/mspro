@@ -30,7 +30,14 @@
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>
                                     </div>
+
+                                    <div class="col-auto">
+                                        <a href="{{ route('pacientes.create') }}" class="btn app-btn-secondary"> Novo Paciente </a>
+                                    </div>
                                 </form>
+
+                                
+                       
                                 
                             </div><!--//col-->
   
@@ -67,6 +74,7 @@
                                             <th class="cell">IDADE</th>
                                             <th class="cell">CNS</th>
                                             <th class="cell">CELULAR</th>
+                                            <th class="cell">JÁ APLICADAS </th>
                                             <th class="cell">AÇÕES</th>
                                         </tr>
                                     </thead>
@@ -75,12 +83,13 @@
                                             @foreach ($pacientes as $paciente)
                                             <tr>
                                                 <td class="cell">{{ $paciente->id }}</td>
-                                                <td class="cell"><span class="truncate">{{ $paciente->nome }}</span></td>
+                                                <td class="cell"><a href="{{route('atendimentos.create', $paciente->id ) }}">{{ $paciente->nome }}</a></td>
                                                 <td class="cell">{{ $paciente->cpf }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
                                                 <td class="cell"><a href="http://wa.me/55{{ $paciente->celular }}" target="_blank"> {{ $paciente->celular }}</a></td>
+                                                <td class="cell">#</td>
                                                 <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('pacientes.show', $paciente->id ) }}">Visualizar</a></td>
                                             </tr>
                                             @endforeach

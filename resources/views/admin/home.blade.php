@@ -94,7 +94,7 @@
                             <div class="stats-meta"> já receberam vacina </div>
                         </div>
                         <!--//app-card-body-->
-                        <a class="app-card-link-mask" href="#"></a>
+                        <a class="app-card-link-mask" href="{{ route('atendimentos.index') }}"></a>
                     </div>
                     <!--//app-card-->
                 </div>

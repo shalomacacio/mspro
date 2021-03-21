@@ -79,7 +79,7 @@ class UfsController extends Controller
             $uf = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Uf created.',
+                'message' => 'Uf adicionado com sucesso!',
                 'data'    => $uf->toArray(),
             ];
 
@@ -155,7 +155,7 @@ class UfsController extends Controller
             $uf = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Uf updated.',
+                'message' => 'Uf atulizado com sucesso!',
                 'data'    => $uf->toArray(),
             ];
 
@@ -194,11 +194,11 @@ class UfsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Uf deleted.',
+                'message' => 'Ufexcluido.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Uf deleted.');
+        return redirect()->back()->with('message', 'Uf excluido.');
     }
 }
