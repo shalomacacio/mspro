@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entities\Agenda;
 use App\Entities\Campanha;
 use App\Entities\Paciente;
+use App\Entities\Ubs;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -110,7 +111,7 @@ class AgendasController extends Controller
                     'message' => $e->getMessageBag()
                 ]);
             }
-            // return dd($e->getMessageBag());
+
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -122,28 +123,32 @@ class AgendasController extends Controller
     }
 
     public function agendarLoteForm(Request $request){
-        $idade_min = $request->idade_min;
-        $idade_max = $request->idade_max;
-
-        $pacientes = null;
-        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
-
-        $campanha_id = $request->campanha_id;
-        $agenda = Agenda::where('campanha_id', $campanha_id)->get();
-
-        if($agenda){
-            $ja_agendados = $agenda->pluck('paciente_id')->toArray();
+        $ubs = Ubs::all();
+        $campanhas = Campanha::all();
+        
+        if(is_null ($request->ubs_id)){  
+            $ubs_id = $ubs->pluck('id')->toArray(); 
+        } else {
+            $ubs_id = $request->ubs_id;    
         }
 
-        if($request != null){
-            $pacientes = DB::table('pacientes as p')
+        if(is_null ($request->idade_min)){  
+            $idade_min = 0;
+        } else {
+            $idade_min = $request->idade_min;  
+        }
+
+       
+        $result = DB::table('pacientes as p')
             ->join('ubs as u', 'p.ubs_id', 'u.id')
-            ->select('p.id', 'p.nome', 'p.cpf', 'p.cns','p.celular', 'p.dt_nascimento', 'u.nome as ubs')
-            ->whereNotIN('p.id', $ja_agendados)
-            ->get()
-            ->sortBy('dt_nascimento');
-        }
-        return view('admin.agendas.agendarLoteForm', compact('pacientes', 'campanhas', 'idade_min', 'idade_max', 'campanha_id'));
+            ->whereIn('ubs_id', $ubs_id)
+            ->selectRaw(' * ,p.id as id,  p.nome as nome, p.cpf, p.dt_nascimento , u.nome as ubs , YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) AS idade')
+            ->whereRaw("YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) >='".$idade_min."'")
+            ->get();
+    
+        $pacientes = $result->sortBy('nome');
+
+        return view('admin.agendas.agendarLoteForm', compact('pacientes', 'campanhas', 'ubs' ,'idade_min'));
     }
 
 
@@ -245,7 +250,7 @@ class AgendasController extends Controller
             $agenda = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Agenda atulizado com sucesso!',
+                'message' => 'Agenda updated.',
                 'data'    => $agenda->toArray(),
             ];
 
@@ -284,11 +289,11 @@ class AgendasController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Agendaexcluido.',
+                'message' => 'Agenda deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Agenda excluido.');
+        return redirect()->back()->with('message', 'Agenda deleted.');
     }
 }

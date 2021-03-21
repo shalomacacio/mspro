@@ -11,30 +11,27 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Agendamento em Lote:</h1>
+                    <h1 class="app-page-title mb-0">Agendamento em Lote: {{ $pacientes->count()  }} </h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                             <div class="col-auto">
-                                <form class="table-search-form row gx-1 align-items-center">
-                                    @csrf
+                                <form class="table-search-form row gx-1 align-items-center" action="{{ route('agendas.agendarLoteForm') }}" method="GET">
+
+                                    <select  class="form-select w-auto" name="ubs_id[]" >
+                                        <option disabled selected value >-- UBS --</option>
+                                        @foreach ($ubs as $u)
+                                            <option value="{{ $u->id }}">{{ $u->nome }}</option>
+                                        @endforeach
+                                    </select>
 
                                     <div class="col-auto">
-                                        <select class="form-select w-auto" name="campanha_id" required >
-                                            <option selected value=" ">--CAMPANHA--</option>
-                                            @foreach ($campanhas as $camp)
-                                                <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
-                                            @endforeach
-                                        </select>
-                                        
-                                    </div>
-
-                                    <div class="col-auto">
-                                        <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" required>
-                                    </div>   
-                                    <div class="col-auto">
-                                        <input type="number" name="idade_max" class="form-control search-orders" placeholder="IDADE MÁXIMA" required>
+                                        <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" 
+                                        @if ($idade_min)
+                                        value="{{ $idade_min }}"  
+                                        @endif
+                                        >
                                     </div>                                  
 
                                     <div class="col-auto">
@@ -66,7 +63,7 @@
                                 <table class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
-                                            <th class="cell">COD</th>
+                                            <th class="cell" style="width: ">COD</th>
                                             <th class="cell">NOME</th>
                                             <th class="cell">CPF</th>
                                             <th class="cell">NASCIMENTO</th>
@@ -78,28 +75,28 @@
 
                                         </tr>
                                     </thead>
-                                    @isset($pacientes)
+                            
                                     <form action="{{ route('agendas.agendarLote')  }}" method="POST">
                                         @csrf
                                         <tbody>
                                             @foreach ($pacientes as $paciente)
-                                                @if ( \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) >= $idade_min  && \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento) <= $idade_max)
                                                 <tr>
                                                     <td class="cell">{{ $paciente->id }}</td>
-                                                    <td class="cell"><span class="truncate">{{ $paciente->nome }}</span></td>
+                                                    <td class="cell">{{ $paciente->nome }}</td>
                                                     <td class="cell">{{ $paciente->cpf }}</td>
-                                                    <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
-                                                    <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
-                                                    <td class="cell">{{ $paciente->cns }}</td>
-                                                    <td class="cell">{{ $paciente->ubs }}</td>
+                                                     <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
+                                                     <td class="cell">{{ $paciente->idade }}</td>
+                                                     <td class="cell">{{ $paciente->cns }}</td>
+                                                     <td class="cell">{{ $paciente->ubs }}</td>
                                                     <td class="cell">{{ $paciente->celular }}</td>
-                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($campanha_id) checked @endisset /></td>
+                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($idade_min) checked @endisset /></td>
                                                 </tr>
-                                                @endif
+                                               
                                             @endforeach
                                         </tbody>
-                                        @isset($campanha_id)
-                                        <tfoot>
+                                   
+
+                                        {{-- <tfoot>
                                             <tr>
                                                 <td>
                                                     <div class="col-auto">
@@ -107,17 +104,26 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type="hidden" name="user_id" value="{{Auth::id()}}" />
-                                                    <input type="hidden" name="campanha_id" value="{{ $campanha_id }}" required />
                                                     <div class="col-auto">
+                                                        <select class="form-select w-auto" name="campanha_id" required >
+                                                            <option selected value=" ">--CAMPANHA--</option>
+                                                            @foreach ($campanhas as $camp)
+                                                                <option value="{{ $camp->id }}">{{ $camp->titulo }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        
+                                                    </div>
+                                                    <input type="hidden" name="user_id" value="{{Auth::id()}}" />
+                                                    {{-- <input type="hidden" name="campanha_id" value="{{ $campanha_id }}" required /> --}}
+                                                    {{-- <div class="col-auto">
                                                         <button type="submit" class="btn app-btn-secondary"> Agendar </button>
                                                     </div>
                                                 </td> 
                                             </tr> 
-                                        </tfoot>
-                                        @endisset
+                                        </tfoot>  --}}
+                                  
                                     </form>
-                                 @endisset
+                                
                                 </table>
                             </div><!--//table-responsive-->
                         </div><!--//app-card-body-->		

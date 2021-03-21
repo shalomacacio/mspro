@@ -33,5 +33,4 @@ class Atendimento extends Model implements Transformable
     public function paciente(){
         return $this->belongsTo(Paciente::class);
     }
-
 }
