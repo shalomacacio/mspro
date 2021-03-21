@@ -72,7 +72,6 @@
                                             <th class="cell">UBS </th>
                                             <th class="cell">CELULAR</th>
                                             <th class="cell"><input type="checkbox" name="all" ></th>
-
                                         </tr>
                                     </thead>
                             
@@ -91,13 +90,17 @@
                                                     <td class="cell">{{ $paciente->celular }}</td>
                                                     <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($idade_min) checked @endisset /></td>
                                                 </tr>
-                                               
                                             @endforeach
                                         </tbody>
                                    
 
-                                        {{-- <tfoot>
+                                        <tfoot>
                                             <tr>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
                                                 <td>
                                                     <div class="col-auto">
                                                         <input type="date" name="dh_agendamento" class="form-control search-orders" required>
@@ -113,14 +116,16 @@
                                                         </select>
                                                         
                                                     </div>
+                                                </td>
+                                                <td>
                                                     <input type="hidden" name="user_id" value="{{Auth::id()}}" />
                                                     {{-- <input type="hidden" name="campanha_id" value="{{ $campanha_id }}" required /> --}}
-                                                    {{-- <div class="col-auto">
+                                                   <div class="col-auto">
                                                         <button type="submit" class="btn app-btn-secondary"> Agendar </button>
                                                     </div>
                                                 </td> 
                                             </tr> 
-                                        </tfoot>  --}}
+                                        </tfoot> 
                                   
                                     </form>
                                 
