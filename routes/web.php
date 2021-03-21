@@ -35,9 +35,10 @@ Route::prefix('admin')->group(function () {
     Route::get('atendimentos/{paciente_id}/create', 'AtendimentosController@create')->name('atendimentos.create');
     
     //cruds
-    Route::resource('pacientes', 'PacientesController');
     Route::resource('agendas', 'AgendasController');
+    Route::resource('pacientes', 'PacientesController');
     Route::resource('campanhas', 'CampanhasController');
+    Route::resource('comunicados', 'ComunicadosController');
     Route::resource('atendimentos', 'AtendimentosController')->except('create');
 
 });

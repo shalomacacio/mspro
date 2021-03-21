@@ -61,6 +61,10 @@ class ComunicadosController extends Controller
         return view('comunicados.index', compact('comunicados'));
     }
 
+    public function create(){
+        return view('admin.comunicados.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

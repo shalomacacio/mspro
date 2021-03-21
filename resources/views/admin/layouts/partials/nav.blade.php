@@ -54,11 +54,11 @@
 
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('comunicados.create') }}">
                         <span class="nav-icon">
                             @include('admin.layouts.svg.bi-cursor')
                         </span>
-                        <span class="nav-link-text">Mensagens</span>
+                        <span class="nav-link-text">Notificações</span>
                     </a>
                     <!--//nav-link-->
                 </li>
