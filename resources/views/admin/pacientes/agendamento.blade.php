@@ -110,7 +110,7 @@
                                                     <input type="hidden" name="user_id" value="{{Auth::id()}}" />
                                                     <input type="hidden" name="campanha_id" value="{{ $campanha_id }}" required />
                                                     <div class="col-auto">
-                                                        <button type="submit" class="btn app-btn-secondary"> Agendar </button>
+                                                        <button type="submit" class="btn app-btn-secondary" onclick="confirm('Confirmar agendamento?')"" > Agendar </button>
                                                     </div>
                                                 </td> 
                                             </tr> 

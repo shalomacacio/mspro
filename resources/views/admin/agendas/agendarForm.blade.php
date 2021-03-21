@@ -59,7 +59,7 @@
                             <input type="hidden" name="paciente_id"  value="{{ $paciente->id }}" />
                             <input type="hidden" name="user_id"  value="{{ Auth::user()->id }}" />
                             <div class="app-card-footer p-4 mt-auto">
-                                <button class="btn app-btn-secondary" type="submit" >Agendar</button>
+                                <button class="btn app-btn-secondary" type="submit" onclick="return confirm('Confirmar agendamento?')" >Agendar</button>
                                 <a href="{{ route('atendimentos.create', $paciente->id) }}" class="btn app-btn-secondary"> Atender </a>
 
                             </div><!--//app-card-footer-->

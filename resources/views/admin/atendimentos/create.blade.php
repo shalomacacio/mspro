@@ -64,7 +64,7 @@
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
                                     <a class="btn app-btn-secondary" href="{{ route('agendas.agendarForm', $paciente->id) }}" >AGENDAR</a>
-                                    <button class="btn app-btn-secondary" type="submit" >VACINAR</button>
+                                    <button class="btn app-btn-secondary" type="submit" onclick="return confirm('Confirmar Vacina?')" >VACINAR</button>
                                 </div><!--//app-card-footer-->
                             </form>
 
