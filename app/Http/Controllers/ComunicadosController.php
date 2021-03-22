@@ -209,9 +209,9 @@ class ComunicadosController extends Controller
 
     public function sendMessage(){
         Nexmo::message()->send([
-            'to'   => '5585986618823',
+            'to'   => '5585989629280',
             'from' => '5585987047679',
-            'text' => 'Shalom via MSAUDE'
+            'text' => 'A Secretaria de Saude de Maranguape informa: Sr(a) LADGHELSIN A aplicacao da vacina contra COVID-19 está marcada para 23/03/2021 as 10:00 da manhã no UBS-CENTRO. Não falte ! Confirmar sua presença aqui https://is.gd/IJWsPg'
         ]);
       
     }
