@@ -11,6 +11,7 @@ use App\Http\Requests\ComunicadoCreateRequest;
 use App\Http\Requests\ComunicadoUpdateRequest;
 use App\Repositories\ComunicadoRepository;
 use App\Validators\ComunicadoValidator;
+use Nexmo\Laravel\Facade\Nexmo;
 
 /**
  * Class ComunicadosController.
@@ -204,5 +205,14 @@ class ComunicadosController extends Controller
         }
 
         return redirect()->back()->with('message', 'Comunicado excluido.');
+    }
+
+    public function sendMessage(){
+        Nexmo::message()->send([
+            'to'   => '5585986618823',
+            'from' => '5585987047679',
+            'text' => 'Shalom via MSAUDE'
+        ]);
+      
     }
 }

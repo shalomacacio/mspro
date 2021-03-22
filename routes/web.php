@@ -31,6 +31,9 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/agendas/selectCampanha', 'AgendasController@selectCampanha')->name('agendas.selectCampanha');
 
+    Route::post('/comunicados/send', 'ComunicadosController@sendMessage')->name('comunicados.send');
+
+
     //atendimentos
     Route::get('atendimentos/{paciente_id}/create', 'AtendimentosController@create')->name('atendimentos.create');
     

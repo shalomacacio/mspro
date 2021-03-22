@@ -28,13 +28,13 @@
                             </div><!--//row-->
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
-                            <form class="settings-form"  action="{{ route('campanhas.store') }}" method="POST">
+                            <form class="settings-form"  action="{{ route('comunicados.send') }}" method="POST">
                                 @csrf
                                 @include('admin.campanhas.form')
                             
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Salvar</button>
+                                    <button class="btn app-btn-secondary" type="submit" >Enviar</button>
                                 </div><!--//app-card-footer-->
                             </form>
                        
