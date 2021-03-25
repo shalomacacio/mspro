@@ -126,6 +126,20 @@ class CampanhasController extends Controller
         return view('admin.campanhas.show', compact('campanha'));
     }
 
+    public function shows(Request $request)
+    {
+        $campanha = $this->repository->find($request->campanha_id);
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $campanha,
+            ]);
+        }
+
+        return view('admin.campanhas.show', compact('campanha'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

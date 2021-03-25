@@ -17,6 +17,7 @@ use App\Http\Requests\PacienteCreateRequest;
 use App\Http\Requests\PacienteUpdateRequest;
 use App\Repositories\PacienteRepository;
 use App\Validators\PacienteValidator;
+use Dotenv\Validator;
 use Illuminate\Support\Facades\DB;
 
 /**

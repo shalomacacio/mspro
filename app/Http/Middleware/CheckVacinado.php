@@ -17,13 +17,16 @@ class CheckVacinado
     public function handle($request, Closure $next)
     {
         $paciente_id = $request->paciente_id;
-        $campanha_id = $request->campanha_id;
-        $agenda = Atendimento::where('campanha_id', $campanha_id )->where('paciente_id', $paciente_id)->first();
+        $agenda_id = $request->agenda_id;
+        $atendimento = Atendimento::where('agenda_id', $agenda_id )
+                    ->where('paciente_id', $paciente_id)
+                    ->where('concluido', 'S')
+                    ->first();
 
-        if(!$agenda){
+        if(!$atendimento){
             return $next($request);   
         }
-        return redirect()->back()->with('message', 'Paciente já agendado para esta campanha');
+        return redirect()->back()->with('message', 'Paciente já Vacinado nesta Campanha');
       
     }
 }

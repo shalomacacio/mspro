@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="agenda_id" class="form-label @error('agenda_id') is-invalid @enderror">Agenda</label>
+    <label for="agenda_id" class="form-label @error('agenda_id') is-invalid @enderror">Campanha</label>
         <select class="form-control" id="agenda_id" name="agenda_id" required>
             @foreach ($agendas as $agenda)
                 <option value="{{ $agenda->id }}">{{ $agenda->campanha->titulo }}</option>

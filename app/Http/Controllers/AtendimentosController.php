@@ -42,6 +42,7 @@ class AtendimentosController extends Controller
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->middleware('checkvacinado')->only('store');
     }
 
     /**

@@ -18,7 +18,7 @@
                                 <form class="table-search-form row gx-1 align-items-center" action="{{ route('pacientes.search') }}">
                                     @csrf
                                     <div class="col-auto">
-                                        <input type="text" id="search-orders" name="value" class="form-control search-orders" placeholder="Escolha um tipo de pesquisa">
+                                        <input type="text" id="search-orders" name="value" class="form-control search-orders" placeholder="Escolha um tipo de pesquisa" required>
                                     </div>
                                     <div class="col-auto">
                                         <select class="form-select w-auto" name="filter" >
@@ -83,14 +83,14 @@
                                             @foreach ($pacientes as $paciente)
                                             <tr>
                                                 <td class="cell">{{ $paciente->id }}</td>
-                                                <td class="cell"><a href="{{route('atendimentos.create', $paciente->id ) }}">{{ $paciente->nome }}</a></td>
+                                                <td class="cell"><a href="{{route('pacientes.show', $paciente->id ) }}">{{ $paciente->nome }}</a></td>
                                                 <td class="cell">{{ $paciente->cpf }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
                                                 <td class="cell">{{ \Carbon\Carbon::now()->diffInYears($paciente->dt_nascimento)}} </td>
                                                 <td class="cell">{{ $paciente->cns }}</td>
                                                 <td class="cell"><a href="http://wa.me/55{{ $paciente->celular }}" target="_blank"> {{ $paciente->celular }}</a></td>
                                                 <td class="cell">#</td>
-                                                <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('pacientes.show', $paciente->id ) }}">Visualizar</a></td>
+                                                <td class="cell"><a class="btn-sm app-btn-primary" href="{{route('atendimentos.create', $paciente->id ) }}">Atender</a></td>
                                             </tr>
                                             @endforeach
                                         @endisset

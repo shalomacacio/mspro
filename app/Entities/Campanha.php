@@ -32,5 +32,9 @@ class Campanha extends Model implements Transformable
         'ativa' => 'boolean',
     ];
 
+    // public function agendas(){
+    //     return $this->hasMany(Agenda::class);
+    // }
+
 
 }

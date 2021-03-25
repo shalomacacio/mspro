@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Agenda;
+use App\Entities\Campanha;
+use App\Entities\Paciente;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -63,7 +66,8 @@ class ComunicadosController extends Controller
     }
 
     public function create(){
-        return view('admin.comunicados.create');
+        $campanhas = Campanha::all();
+        return view('admin.comunicados.create', compact('campanhas'));
     }
 
     /**
@@ -207,12 +211,19 @@ class ComunicadosController extends Controller
         return redirect()->back()->with('message', 'Comunicado excluido.');
     }
 
-    public function sendMessage(){
+    public function sendMessage( Request $request){
+        $campanha = Campanha::find($request->campanha_id);
+
+        $agenda = Agenda::find($request->agenda_id);
+        $paciente = Paciente::find( $agenda->paciente_id );
+
         Nexmo::message()->send([
             'to'   => '5585989629280',
             'from' => '5585987047679',
-            'text' => 'A Secretaria de Saude de Maranguape informa: Sr(a) LADGHELSIN A aplicacao da vacina contra COVID-19 está marcada para 23/03/2021 as 10:00 da manhã no UBS-CENTRO. Não falte ! Confirmar sua presença aqui https://is.gd/IJWsPg'
+            'text' => 'A Secretaria de Saude de Maranguape informa: Sr(a)'.$paciente->nome.'A aplicacao da vacina contra COVID-19 esta marcada para'.$agenda->dh_agendamento.'no '.$paciente->ubs->nome.'. Nao falte ! Confirmar sua presença aqui https://is.gd/IJWsPg'
         ]);
+
+        return redirect()->back()->with('message', 'Comunicado enviado com sucesso.');
       
     }
 }

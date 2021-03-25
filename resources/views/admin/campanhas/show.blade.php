@@ -29,85 +29,6 @@
                         </div><!--//app-card-header-->
                         <div class="app-card-body px-4 w-100">
      
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Nome</strong></div>
-                                        <div class="item-data">{{ $paciente->nome}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>CPF</strong></div>
-                                        <div class="item-data">{{ $paciente->cpf}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Celular</strong></div>
-                                        <div class="item-data">{{ $paciente->celular}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>CNS</strong></div>
-                                        <div class="item-data">{{ $paciente->cns}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Data Nascimento</strong></div>
-                                        <div class="item-data">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d/m/Y')}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Endereço</strong></div>
-                                        <div class="item-data">{{ $paciente->rua}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Nº</strong></div>
-                                        <div class="item-data">{{ $paciente->num}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Bairro</strong></div>
-                                        <div class="item-data">@isset($paciente->bairro->nome) {{ $paciente->bairro->nome}} @endisset</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
-
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>Cidade</strong></div>
-                                        <div class="item-data">@isset($paciente->cidade->nome) {{ $paciente->cidade->nome}} @endisset</div>                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
 
                             <div class="item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
@@ -118,14 +39,6 @@
                                 </div><!--//row-->
                             </div><!--//item-->
 
-                            <div class="item border-bottom py-3">
-                                <div class="row justify-content-between align-items-center">
-                                    <div class="col-auto">
-                                        <div class="item-label"><strong>AGENTE DE SAÚDE</strong></div>
-                                        <div class="item-data">{{ $paciente->agente_saude}}</div>
-                                    </div><!--//col-->
-                                </div><!--//row-->
-                            </div><!--//item-->
 
                             
                         </div><!--//app-card-body-->
@@ -159,9 +72,7 @@
                                 <div class="row justify-content-between align-items-center">
                                     
                                     <div class="col-auto">
-                                        @foreach ($paciente->comorbidades as $comorb)
-                                        <div class="item-label"><strong>{{ $comorb->descricao }} </strong></div>
-                                        @endforeach
+
                                     </div><!--//col-->
 
                                 </div><!--//row-->

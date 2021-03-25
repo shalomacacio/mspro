@@ -23,20 +23,32 @@
                                     
                                 </div><!--//col-->
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Notificar</h4>
+                                    <h4 class="app-card-title">Selecione uma Campanha</h4>
                                 </div><!--//col-->
                             </div><!--//row-->
                         </div><!--//app-card-header-->
+
                         <div class="app-card-body px-4 w-100">
-                            <form class="settings-form"  action="{{ route('comunicados.send') }}" method="POST">
+                            <form class="settings-form"  action="{{ route('campanhas.shows') }}" method="POST">
                                 @csrf                            
-                                </div><!--//app-card-body-->
+                               
+                                <div class="col-auto">
+                                    <select class="form-select w-auto" name="campanha_id" >
+                                        <option selected value=" ">--SELECIONE--</option>
+                                        @foreach ($campanhas as $campanha)
+                                            <option value="{{ $campanha->id }}">{{ $campanha->titulo }}</option>
+                                        @endforeach
+                
+                                    </select>
+                                </div>
+
                                 <div class="app-card-footer p-4 mt-auto">
-                                    <button class="btn app-btn-secondary" type="submit" >Notificar via SMS</button>
+                                    <button class="btn app-btn-secondary" type="submit" >Listar Pacientes</button>
                                 </div><!--//app-card-footer-->
                             </form>
                        
                     </div><!--//app-card-->
+
                 </div><!--//col-->
             </div><!--//row-->
             
