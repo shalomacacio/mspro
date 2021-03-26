@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function () {
 
     //atendimentos
     Route::get('atendimentos/{paciente_id}/create', 'AtendimentosController@create')->name('atendimentos.create');
+    //relatorios
+    Route::get('/relatorios/pacientes', 'RelatoriosController@pacientes')->name('relatorios.pacientes');
     
     //cruds
     Route::resource('agendas', 'AgendasController');

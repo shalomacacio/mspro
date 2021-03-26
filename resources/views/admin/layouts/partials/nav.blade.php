@@ -62,6 +62,27 @@
                     </a>
                     <!--//nav-link-->
                 </li>
+
+                <li class="nav-item has-submenu">
+                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                    <a class="nav-link submenu-toggle" href="#" data-toggle="collapse" data-target="#submenu-4" aria-expanded="false" aria-controls="submenu-2">
+                        <span class="nav-icon">
+                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                        @include('admin.layouts.svg.report')
+                         </span>
+                         <span class="nav-link-text">Relatórios</span>
+                         <span class="submenu-arrow">
+                            @include('admin.layouts.svg.paper')
+                         </span><!--//submenu-arrow-->
+                    </a><!--//nav-link-->
+                    <div id="submenu-4" class="collapse submenu submenu-4" data-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('relatorios.pacientes') }}">Lista Pacientes</a></li>
+
+                        </ul>
+                    </div>
+                </li><!--//nav-item-->
+                
                 <!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
