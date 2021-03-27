@@ -242,9 +242,9 @@ class PacientesController extends Controller
 
         if($filter != null){
             if($filter == 'nome'){
-                $pacientes = DB::table('pacientes')->where('nome','like', '%'.$value.'%')->get();
+                $pacientes = DB::table('pacientes')->where('nome','like', '%'.$value.'%')->get()->sortBy('nome');
             } else {
-                $pacientes = DB::table('pacientes')->where($filter,$value )->get();
+                $pacientes = DB::table('pacientes')->where($filter,$value )->get()->sortBy('nome');
             }
         }
     
