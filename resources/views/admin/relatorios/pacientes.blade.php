@@ -89,8 +89,16 @@
 <script>
 $(document).ready(function() {
     var table = $('#example').DataTable( {
+        processing: true,
         lengthChange: false,
-        buttons: [ 'excel', 'pdf'],
+        buttons: [ 
+            'excel', 
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape',
+                pageSize: 'LEGAL'
+            }
+        ],
         paging:   true,
         info:     true,
         bFilter: false,
