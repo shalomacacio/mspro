@@ -92,11 +92,12 @@ $(document).ready(function() {
         lengthChange: false,
         buttons: [ 'excel', 'pdf'],
         paging:   true,
-        info:     false,
+        info:     true,
         bFilter: false,
         ordering: true,
         pageLength: 100,
         language: {
+            info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
             paginate: {
             "next": "Próximo",
             "previous": "Anterior",
