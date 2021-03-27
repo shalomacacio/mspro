@@ -4,6 +4,14 @@
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"> --}}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.bootstrap5.min.css">
+<style>
+    td {
+      font-size: 9px;
+    }
+    th {
+      font-size: 11px;
+    }
+</style>
 
 @stop
 
@@ -11,7 +19,7 @@
 <div class="app-wrapper">
     <div class="app-content pt-3 p-md-3 p-lg-4">
 
-        <table id="example" class="table table-striped" style="width:100%">
+        <table id="example" class="table table-striped display compact" style="width:100%">
             <thead>
                 <tr>
                     <th>Cod</th>
@@ -81,13 +89,23 @@
 <script>
 $(document).ready(function() {
     var table = $('#example').DataTable( {
-        // language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json" },
         lengthChange: false,
         buttons: [ 'excel', 'pdf'],
-        paging:   false,
+        paging:   true,
         info:     false,
         bFilter: false,
         ordering: true,
+        pageLength: 100,
+        language: {
+            paginate: {
+            "next": "Próximo",
+            "previous": "Anterior",
+            "first": "Primeiro",
+            "last": "Último"
+        },
+
+        }
+        
         
 
     } );
