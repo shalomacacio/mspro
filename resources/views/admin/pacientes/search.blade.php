@@ -9,7 +9,11 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Pacientes {{ $pacientes->count() }}</h1>
+                    <h1 class="app-page-title mb-0">Pacientes 
+                        @isset($pacientes)
+                        {{ $pacientes->count() }}
+                        @endisset 
+                    </h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
