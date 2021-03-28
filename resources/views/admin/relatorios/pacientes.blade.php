@@ -87,40 +87,60 @@
 
 
 <script>
-$(document).ready(function() {
-    var table = $('#example').DataTable( {
-        processing: true,
-        lengthChange: false,
-        buttons: [ 
-            'excel', 
-            {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'LEGAL'
+    $(document).ready(function() {
+    
+        // Setup - add a text input to each footer cell
+        $('#example thead tr').clone(true).appendTo( '#example thead' );
+        $('#example thead tr:eq(1) th').each( function (i) {
+            var title = $(this).text();
+            // if(title == 'Sexo' || title == 'CPF' || title == 'Celular' || title == 'CNS' || title == 'Ag Saude'   ){
+            //      $(this).html( '<input type="text" placeholder="'+title+'" style="width: 100%"  />' );
+            // } else{
+            //     $(this).html( '<input type="text" placeholder="'+title+'" style="width: 100%"  />' );
+            // }
+            $(this).html( '<input type="text" placeholder="'+title+'" style="width: 100%"  />' );
+            
+     
+            $( 'input', this ).on( 'keyup change', function () {
+                if ( table.column(i).search() !== this.value ) {
+                    table
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    
+        var table = $('#example').DataTable( {
+            processing: true,
+            lengthChange: false,
+            buttons: [ 
+                'excel', 
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                }
+            ],
+            paging:   true,
+            info:     true,
+            bFilter: true,
+            ordering: true,
+            pageLength: 100,
+            language: {
+                search: "Pesquisar",
+                info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                paginate: {
+                "next": "Próximo",
+                "previous": "Anterior",
+                "first": "Primeiro",
+                "last": "Último"
+                },
             }
-        ],
-        paging:   true,
-        info:     true,
-        bFilter: false,
-        ordering: true,
-        pageLength: 100,
-        language: {
-            info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            paginate: {
-            "next": "Próximo",
-            "previous": "Anterior",
-            "first": "Primeiro",
-            "last": "Último"
-        },
-
-        }
-        
-        
-
+        } );
+     
+        table.buttons().container()
+            .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     } );
- 
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-} );
-</script>
+    </script>
 @stop

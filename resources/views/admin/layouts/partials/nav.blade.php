@@ -78,6 +78,7 @@
                     <div id="submenu-4" class="collapse submenu submenu-4" data-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a class="submenu-link" href="{{ route('relatorios.pacientes') }}">Lista Pacientes</a></li>
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('relatorios.campanhas') }}">Por Campanhas</a></li>
 
                         </ul>
                     </div>
