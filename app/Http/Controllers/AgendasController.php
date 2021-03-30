@@ -147,13 +147,20 @@ class AgendasController extends Controller
         } else {
             $idade_min = $request->idade_min;  
         }
+
+        if(is_null ($request->idade_max)){  
+            $idade_max = 2000;
+        } else {
+            $idade_max = $request->idade_max;  
+        }
        
         $result = DB::table('pacientes as p')
             ->join('ubs as u', 'p.ubs_id', 'u.id')
             ->whereNotIn('p.id', $agendados)
             ->whereIn('ubs_id', $ubs_id)
             ->selectRaw(' * ,p.id as id,  p.nome as nome, p.cpf, p.dt_nascimento , u.nome as ubs , YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) AS idade')
-            ->whereRaw("YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) >='".$idade_min."'")
+            ->whereRaw("YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) >='".$idade_min."' && YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(dt_nascimento))) <='".$idade_max."'")
+            // ->whereRaw("")
             ->get();
     
         $pacientes = $result->sortBy('nome');

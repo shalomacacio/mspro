@@ -32,14 +32,7 @@
                                         value="{{ $request->idade_min}}"  
                                         @endif
                                         >
-                                    </div>   
-                                    <div class="col-auto">
-                                        <input type="number" name="idade_max" class="form-control search-orders" placeholder="IDADE MÁXIMA" 
-                                        @if ($request->idade_max)
-                                        value="{{ $request->idade_max}}"  
-                                        @endif
-                                        >
-                                    </div>                               
+                                    </div>                                  
                                     <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}"/>
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>

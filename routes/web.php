@@ -37,6 +37,9 @@ Route::prefix('admin')->group(function () {
 
     //atendimentos
     Route::get('atendimentos/{paciente_id}/create', 'AtendimentosController@create')->name('atendimentos.create');
+    Route::get('/atendimentos/selectCampanha', 'AtendimentosController@selectCampanha')->name('atendimentos.selectCampanha');
+    Route::get('/atendimentos/atenderLotForm', 'AtendimentosController@atenderLotForm')->name('atendimentos.atenderLotForm');
+
     //relatorios
     Route::get('/relatorios/pacientes', 'RelatoriosController@pacientes')->name('relatorios.pacientes');
     Route::get('/relatorios/campanhas', 'RelatoriosController@campanhas')->name('relatorios.campanhas');

@@ -14,6 +14,7 @@ use App\Http\Requests\AtendimentoCreateRequest;
 use App\Http\Requests\AtendimentoUpdateRequest;
 use App\Repositories\AtendimentoRepository;
 use App\Validators\AtendimentoValidator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AtendimentosController.
@@ -70,6 +71,16 @@ class AtendimentosController extends Controller
         $paciente = Paciente::find($paciente_id );
         $agendas = Agenda::where('paciente_id', $paciente_id )->get();
         return view('admin.atendimentos.create', compact('paciente','agendas' ,'vacinas'));
+    }
+
+    public function selectCampanha(){
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+        return view('admin.atendimentos.select_campanha', compact('campanhas'));
+    }
+
+    public function atenderLotForm(){
+        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
+        return view('admin.atendimentos.select_campanha', compact('campanhas'));
     }
 
     /**
@@ -214,5 +225,49 @@ class AtendimentosController extends Controller
         }
 
         return redirect()->back()->with('message', 'Atendimento excluido.');
+    }
+
+    public function atenderLote(AtendimentoCreateRequest $request)
+    {
+        try {
+
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+            // $pacientes = $request->pacientes;
+            // $campanha_id = $request->campanha_id;
+            // $dh_agendamento = $request->dh_agendamento;
+            // $user_id = $request->user_id;
+
+            // foreach ($pacientes as  $paciente) {
+
+            //     $agenda = new Agenda();
+            //     $agenda->user_id = $user_id;
+            //     $agenda->paciente_id = $paciente;
+            //     $agenda->campanha_id = $campanha_id;
+            //     $agenda->dh_agendamento = $dh_agendamento;
+            //     $agenda->save();
+            // }
+
+            $response = [
+                'message' => 'Agendameno criado com sucesso.',
+                'data'    => $agenda->toArray(),
+            ];
+
+            if ($request->wantsJson()) {
+
+                return response()->json($response);
+            }
+
+            return redirect()->back()->with('message', $response['message']);
+        } catch (ValidatorException $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'error'   => true,
+                    'message' => $e->getMessageBag()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+        }
     }
 }

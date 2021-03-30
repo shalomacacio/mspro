@@ -46,6 +46,25 @@
                     <div id="submenu-2" class="collapse submenu submenu-2" data-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a class="submenu-link" href="{{ route('pacientes.create') }}">Novo Paciente</a></li>
+                        </ul>
+                    </div>
+                </li><!--//nav-item-->
+
+                <li class="nav-item has-submenu">
+                    <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                    <a class="nav-link submenu-toggle" href="#" data-toggle="collapse" data-target="#submenu-5" aria-expanded="false" aria-controls="submenu-5">
+                        <span class="nav-icon">
+                        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                        @include('admin.layouts.svg.medical')
+                         </span>
+                         <span class="nav-link-text">Serviços em Lote</span>
+                         <span class="submenu-arrow">
+                            @include('admin.layouts.svg.paper')
+                         </span><!--//submenu-arrow-->
+                    </a><!--//nav-link-->
+                    <div id="submenu-5" class="collapse submenu submenu-5" data-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item"><a class="submenu-link" href="{{ route('atendimentos.selectCampanha') }}">Vacinar em Lote</a></li>
                             <li class="submenu-item"><a class="submenu-link" href="{{ route('agendas.selectCampanha') }}">Agendamento em Lote</a></li>
 
                         </ul>
