@@ -82,7 +82,7 @@
                                                     <td class="cell">{{ $atendimento->created_at }}</td>
                                                     <td class="cell">{{ $atendimento->paciente->nome }}</td>
                                                     <td class="cell">{{ $atendimento->agenda->campanha->titulo}}</td>
-                                                    <td class="cell">{{ $atendimento->vacina_id }}</td>
+                                                    <td class="cell">{{ $atendimento->vacina->nome }}</td>
                                                 </tr>
                                                 
                                             @endforeach

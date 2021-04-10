@@ -37,4 +37,8 @@ class Atendimento extends Model implements Transformable
     public function agenda(){
         return $this->belongsTo(Agenda::class);
     }
+
+    public function vacina(){
+        return $this->belongsTo(Vacina::class);
+    }
 }
