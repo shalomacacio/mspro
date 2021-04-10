@@ -82,10 +82,15 @@ class AtendimentosController extends Controller
     public function atenderLotForm(Request $request){
 
         $vacinas = DB::table('vacinas')->get();
+
         $campanha_id = $request->campanha_id;
+
+
+
         $agendas = DB::table('agendas as a')
             ->join('pacientes as p', 'a.paciente_id', 'p.id')
             ->where('a.campanha_id', $campanha_id )
+            ->whereNull('confirm')
             ->select('a.id', 'a.paciente_id',  'p.nome', 'p.cpf', 'p.dt_nascimento', 'p.cns', 'p.celular')
             ->get();
 
