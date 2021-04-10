@@ -32,6 +32,6 @@ class Agenda extends Model implements Transformable
     }
 
     public function campanha(){
-        return $this->belongsTo(Campanha::class);
+        return $this->belongsTo(Campanha::class );
     }
 }

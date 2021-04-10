@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Agenda;
+use App\Entities\Atendimento;
 use App\Entities\Paciente;
 use App\Entities\Vacina;
 use Illuminate\Http\Request;
@@ -78,9 +79,17 @@ class AtendimentosController extends Controller
         return view('admin.atendimentos.select_campanha', compact('campanhas'));
     }
 
-    public function atenderLotForm(){
-        $campanhas = DB::table('campanhas')->where('ativa', 1 )->get();
-        return view('admin.atendimentos.select_campanha', compact('campanhas'));
+    public function atenderLotForm(Request $request){
+
+        $vacinas = DB::table('vacinas')->get();
+        $campanha_id = $request->campanha_id;
+        $agendas = DB::table('agendas as a')
+            ->join('pacientes as p', 'a.paciente_id', 'p.id')
+            ->where('a.campanha_id', $campanha_id )
+            ->select('a.id', 'a.paciente_id',  'p.nome', 'p.cpf', 'p.dt_nascimento', 'p.cns', 'p.celular')
+            ->get();
+
+        return view('admin.atendimentos.atenderLoteForm', compact('agendas', 'vacinas'));
     }
 
     /**
@@ -233,23 +242,32 @@ class AtendimentosController extends Controller
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            // $pacientes = $request->pacientes;
-            // $campanha_id = $request->campanha_id;
-            // $dh_agendamento = $request->dh_agendamento;
-            // $user_id = $request->user_id;
+            $agendas = $request->agendas;
+            $user_id = $request->user_id;
+            $vacina_id = $request->vacina_id;
 
-            // foreach ($pacientes as  $paciente) {
+        
 
-            //     $agenda = new Agenda();
-            //     $agenda->user_id = $user_id;
-            //     $agenda->paciente_id = $paciente;
-            //     $agenda->campanha_id = $campanha_id;
-            //     $agenda->dh_agendamento = $dh_agendamento;
-            //     $agenda->save();
-            // }
+            foreach ($agendas as  $a) {
+
+                $agenda = Agenda::find($a);
+
+                $atendimento = new Atendimento();
+                $atendimento->user_id = $user_id;
+                $atendimento->vacina_id = $vacina_id;
+                $atendimento->agenda_id = $a;
+                $atendimento->paciente_id = $agenda->paciente->id;
+                $atendimento->save();
+
+                $agenda->confirm = 'S';
+                $agenda->save();
+    
+
+
+            }
 
             $response = [
-                'message' => 'Agendameno criado com sucesso.',
+                'message' => 'Atendimento criado com sucesso.',
                 'data'    => $agenda->toArray(),
             ];
 

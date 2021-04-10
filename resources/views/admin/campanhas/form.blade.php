@@ -9,7 +9,7 @@
 
 <div class="mb-10">
   <label for="descricao" class="form-label @error('descricao') is-invalid @enderror">Descricao</label>
-  <textarea class=" form-control" id="descricao" name="descricao"  rows="10">
+  <textarea class=" form-control" id="descricao" name="descricao" >
     @isset($campanha->descricao)
       {{ $campanha->descricao }}
     @endisset

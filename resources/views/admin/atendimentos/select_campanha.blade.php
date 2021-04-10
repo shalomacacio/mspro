@@ -11,7 +11,7 @@
             
             <div class="app-card p-5 text-center shadow-sm">
                 <h1 class="page-title mb-4"><br><span class="font-weight-light">Escolha uma Campanha!</span></h1>
-                <form action="{{ route('atendimentos.atenderLoteForm')}}" method="GET">
+                <form action="{{ route('atendimentos.atenderLotForm')}}" method="GET">
                     <div class="mb-4">
                         <center>
                         

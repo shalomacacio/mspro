@@ -69,7 +69,7 @@
                                             <th class="cell">COD</th>
                                             <th class="cell">DATA </th>
                                             <th class="cell">PACIENTE</th>
-                                            <th class="cell">CAMPANHA</th>
+                                            <th class="cell">AGENDAMENTO</th>
                                             <th class="cell">TIPO VACINA  </th>
                                         </tr>
                                     </thead>
@@ -81,7 +81,7 @@
                                                     <td class="cell">{{ $atendimento->id }}</td>
                                                     <td class="cell">{{ $atendimento->created_at }}</td>
                                                     <td class="cell">{{ $atendimento->paciente->nome }}</td>
-                                                    <td class="cell">{{ $atendimento->agenda_id }}</td>
+                                                    <td class="cell">{{ $atendimento->agenda->campanha->titulo}}</td>
                                                     <td class="cell">{{ $atendimento->vacina_id }}</td>
                                                 </tr>
                                                 

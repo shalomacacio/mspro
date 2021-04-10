@@ -8,7 +8,7 @@
         <div class="container-xl">
             {{-- alerts --}}
             @include('admin.layouts.alerts.session')
-            <h1 class="app-page-title">Paciente</h1>
+            <h1 class="app-page-title">Campanha</h1>
             <div class="row gy-4">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -23,7 +23,7 @@
                                     
                                 </div><!--//col-->
                                 <div class="col-auto">
-                                    <h4 class="app-card-title">Dados Pessoais</h4>
+                                    <h4 class="app-card-title">Dados da Campanha</h4>
                                 </div><!--//col-->
                             </div><!--//row-->
                         </div><!--//app-card-header-->

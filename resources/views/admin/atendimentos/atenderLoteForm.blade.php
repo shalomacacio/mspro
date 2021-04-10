@@ -11,7 +11,7 @@
             
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Agendamento em Lote: {{ $pacientes->count()}} </h1>
+                    <h1 class="app-page-title mb-0">Vacinação em Lote:  </h1>
                 </div>
                 <div class="col-auto">
                      <div class="page-utilities">
@@ -19,21 +19,22 @@
                             <div class="col-auto">
                                 <form class="table-search-form row gx-1 align-items-center" action="{{ route('agendas.agendarLoteForm') }}" method="GET">
 
-                                    <select  class="form-select w-auto" name="ubs_id[]" >
+                                    {{-- <select  class="form-select w-auto" name="ubs_id[]" >
                                         <option disabled selected value >-- UBS --</option>
                                         @foreach ($ubs as $u)
                                             <option value="{{ $u->id }}">{{ $u->nome }}</option>
                                         @endforeach
-                                    </select>
-
+                                    </select> --}}
+{{-- 
                                     <div class="col-auto">
                                         <input type="number" name="idade_min" class="form-control search-orders" placeholder="IDADE MÍNIMA" 
                                         @if ($request->idade_min)
                                         value="{{ $request->idade_min}}"  
                                         @endif
                                         >
-                                    </div>                                  
-                                    <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}"/>
+                                    </div>    
+                                                                   --}}
+                                    {{-- <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}"/> --}}
                                     <div class="col-auto">
                                         <button type="submit" class="btn app-btn-secondary"> Buscar </button>
                                     </div>
@@ -67,28 +68,24 @@
                                             <th class="cell">NOME</th>
                                             <th class="cell">CPF</th>
                                             <th class="cell">NASCIMENTO</th>
-                                            <th class="cell">IDADE</th>
                                             <th class="cell">CNS</th>
-                                            <th class="cell">UBS </th>
                                             <th class="cell">CELULAR</th>
                                             <th class="cell">#</th>
                                         </tr>
                                     </thead>
                             
-                                    <form action="{{ route('agendas.agendarLote')  }}" method="POST">
+                                    <form action="{{ route('atendimentos.atenderLote')  }}" method="POST">
                                         @csrf
                                         <tbody>
-                                            @foreach ($pacientes as $paciente)
+                                            @foreach ($agendas as $agenda)
                                                 <tr>
-                                                    <td class="cell">{{ $paciente->id }}</td>
-                                                    <td class="cell">{{ $paciente->nome }}</td>
-                                                    <td class="cell">{{ $paciente->cpf }}</td>
-                                                     <td class="cell">{{ \Carbon\Carbon::parse($paciente->dt_nascimento)->format('d-m-Y') }}</td>
-                                                     <td class="cell">{{ $paciente->idade }}</td>
-                                                     <td class="cell">{{ $paciente->cns }}</td>
-                                                     <td class="cell">{{ $paciente->ubs }}</td>
-                                                    <td class="cell">{{ $paciente->celular }}</td>
-                                                    <td class="cell"><input type="checkbox" class="marcar" name="pacientes[]" value="{{ $paciente->id }}" @isset($request->idade_min) checked @endisset /></td>
+                                                    <td class="cell">{{ $agenda->id }}</td>
+                                                    <td class="cell">{{ $agenda->nome }}</td>
+                                                    <td class="cell">{{ $agenda->cpf }}</td>
+                                                    <td class="cell">{{ $agenda->dt_nascimento }}</td>
+                                                    <td class="cell">{{ $agenda->cns}}</td>
+                                                    <td class="cell">{{ $agenda->celular }}</td>
+                                                    <td class="cell"><input type="checkbox" class="marcar" name="agendas[]" value="{{ $agenda->id }}" checked  /></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -103,15 +100,21 @@
                                                 <td> </td>
                                                 <td>
                                                     <div class="col-auto">
-                                                        <input type="date" name="dh_agendamento" class="form-control search-orders" required>
+                                                        <select class="form-control" id="vacina_id" name="vacina_id" required>
+                                                            <option value=" ">--Selecione--</option>
+                                                            @foreach ($vacinas as $vacina)
+                                                                <option value="{{ $vacina->id }}">{{ $vacina->nome }}</option>
+                                                            @endforeach  
+                                                        </select>
                                                     </div>
                                                 </td>
                                                 <td> </td>
                                                 <td>
                                                     <input type="hidden" name="user_id" value="{{Auth::id()}}" />
-                                                    <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}" required />
+                                                    
+                                                    {{-- <input type="hidden" name="campanha_id" value="{{ $request->campanha_id }}" required /> --}}
                                                    <div class="col-auto">
-                                                        <button type="submit" class="btn app-btn-secondary" onclick="return confirm('Confirmar agendamento em lote?')" > Agendar </button>
+                                                        <button type="submit" class="btn app-btn-secondary" onclick="return confirm('Confirma vacinar em lote?')" > Vacinar  </button>
                                                     </div>
                                                 </td> 
                                             </tr> 
